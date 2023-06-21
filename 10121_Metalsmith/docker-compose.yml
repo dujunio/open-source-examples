@@ -1,0 +1,27 @@
+#Metalsmith 2.4.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/metalsmith
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10121:80"
+    tty: true
+    container_name: metalsmith
+
+volumes:
+  wwwroot:
+  vhost:

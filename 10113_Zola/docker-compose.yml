@@ -1,0 +1,32 @@
+#Zola 0.17.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/zola
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=zola.dujun.tk
+    ports:
+      - "10113:80"
+    tty: true
+    container_name: zola
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

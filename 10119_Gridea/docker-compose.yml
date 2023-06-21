@@ -1,0 +1,32 @@
+#Gridea 0.9.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/gridea
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=gridea.dujun.tk
+    ports:
+      - "10119:80"
+    tty: true
+    container_name: gridea
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

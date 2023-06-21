@@ -1,0 +1,27 @@
+#Pelican 4.8.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pelican
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10118:80"
+    tty: true
+    container_name: pelican
+
+volumes:
+  wwwroot:
+  vhost:

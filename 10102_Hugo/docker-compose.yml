@@ -1,0 +1,32 @@
+#Hugo 0.112.5
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hugo
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=hugo.dujun.tk
+    ports:
+      - "10102:80"
+    tty: true
+    container_name: hugo
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
