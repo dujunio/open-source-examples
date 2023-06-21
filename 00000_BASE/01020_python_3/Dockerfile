@@ -6,7 +6,7 @@ MAINTAINER dujun
 ADD data.txz /
 
 RUN apt-get update -y &&\
-    apt-get install python3 python3-distutils libpq-dev default-libmysqlclient-dev -y &&\
+    apt-get install libssl1.1=1.1.1n-0+deb11u4 python3 python3-distutils libpq-dev default-libmysqlclient-dev -y &&\
     curl https://bootstrap.pypa.io/get-pip.py | python3 &&\
     pip install virtualenv
 
