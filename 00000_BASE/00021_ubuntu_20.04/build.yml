@@ -1,0 +1,9 @@
+version: '2.4'
+
+services:
+  ubuntu:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/ubuntu:20.04
+    privileged: true

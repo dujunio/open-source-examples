@@ -1,0 +1,9 @@
+version: '2.4'
+
+services:
+  rockylinux:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/rockylinux:9.1
+    privileged: true

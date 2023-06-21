@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  centos:
+    image: dujunio/centos:7.9
+    container_name: centos
+    privileged: true
+    tty: true

@@ -1,0 +1,9 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/debian
+    privileged: true

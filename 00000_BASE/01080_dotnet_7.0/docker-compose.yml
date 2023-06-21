@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  dotnet:
+    image: dujunio/dotnet:7.0
+    container_name: dotnet
+    tty: true

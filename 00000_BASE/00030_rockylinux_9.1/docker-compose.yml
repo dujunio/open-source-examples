@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  rockylinux:
+    image: dujunio/rockylinux:9.1
+    container_name: rockylinux
+    privileged: true
+    tty: true

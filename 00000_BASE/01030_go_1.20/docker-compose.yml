@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  go:
+    image: dujunio/go:1.20
+    container_name: go
+    tty: true

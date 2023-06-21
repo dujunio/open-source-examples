@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  ubuntu:
+    image: dujunio/ubuntu:18.04
+    container_name: ubuntu
+    privileged: true
+    tty: true

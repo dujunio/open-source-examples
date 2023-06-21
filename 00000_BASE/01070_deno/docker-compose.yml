@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  deno:
+    image: dujunio/deno
+    container_name: deno
+    tty: true

@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  ruby:
+    image: dujunio/ruby:2.7
+    container_name: ruby
+    tty: true

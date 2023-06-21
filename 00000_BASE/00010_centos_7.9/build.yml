@@ -1,0 +1,9 @@
+version: '2.4'
+
+services:
+  centos:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/centos:7.9
+    privileged: true

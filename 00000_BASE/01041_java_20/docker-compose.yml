@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  java:
+    image: dujunio/java:20
+    container_name: java
+    tty: true

@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  mongodb:
+    image: dujunio/mongodb:4.4
+    container_name: mongodb
+    privileged: true
+    tty: true

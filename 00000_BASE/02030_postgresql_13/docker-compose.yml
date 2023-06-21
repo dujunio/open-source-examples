@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  postgresql:
+    image: dujunio/postgresql:13
+    container_name: postgresql
+    tty: true

@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  rust:
+    image: dujunio/rust
+    container_name: rust
+    tty: true
