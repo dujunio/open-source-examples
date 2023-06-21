@@ -1,0 +1,46 @@
+#Beetl-BBS 2.4.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/beetl-bbs
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from bbs.bbs_user"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "11028:8081"
+    entrypoint: java -jar /wwwroot/app/bbs-2.4.0.jar
+    healthcheck:
+      test: netstat -atn | grep 8081
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: beetl-bbs
+
+volumes:
+  init:
+  wwwroot:

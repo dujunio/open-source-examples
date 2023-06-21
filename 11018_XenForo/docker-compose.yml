@@ -1,0 +1,58 @@
+#XenForo 2.2.12
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/xenforo
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=xenforo.dujun.tk
+    healthcheck:
+      test: mysql -e 'select * from xenforo.xf_widget_position limit 1'
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      mysql:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=xenforo.dujun.tk
+    ports:
+      - "11018:80"
+    tty: true
+    container_name: xenforo
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

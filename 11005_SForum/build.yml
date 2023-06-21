@@ -1,0 +1,38 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  redis:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02020_redis
+      dockerfile: Dockerfile
+    image: dujunio/redis
+
+  php:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01002_php_8.0
+      dockerfile: Dockerfile
+    image: dujunio/php:8.0
+
+  sforum:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/sforum

@@ -1,0 +1,53 @@
+#Spirit 0.12.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/spirit
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "8000"
+    healthcheck:
+      test: netstat -atn | grep 8000
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      redis:
+        condition: service_healthy
+      python:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "11026:80"
+    tty: true
+    container_name: spirit
+
+volumes:
+  wwwroot:
+  init:
+  vhost:

@@ -1,0 +1,49 @@
+#NodeBB 2.8.9
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nodebb
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mongodb:
+    image: dujunio/mongodb:4.4
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: netstat -atn | grep 27017
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    privileged: true
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "11022:4567"
+    working_dir: /wwwroot/app
+    entrypoint: /bin/bash -c "./nodebb start && /bin/bash"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: netstat -atn | grep 4567
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    tty: true
+    container_name: nodebb
+
+volumes:
+  wwwroot:
+  init:

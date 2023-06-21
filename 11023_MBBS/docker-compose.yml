@@ -1,0 +1,29 @@
+#MBBS 1.1.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/mbbs
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "11023:884"
+    entrypoint: /bin/bash -c "sleep 10 && ts-node /wwwroot/app/server/index.ts"
+    healthcheck:
+      test: netstat -atn | grep 884
+      interval: 1s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+    container_name: mbbs
+
+volumes:
+  wwwroot:

@@ -1,0 +1,40 @@
+#FlaskBB 2.1.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/flaskbb
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    ports:
+      - "11024:8000"
+    environment:
+      - EXAMPLE_DOMAIN=flaskbb.dujun.tk
+    healthcheck:
+      test: netstat -atn | grep 8000
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+    container_name: flaskbb
+
+volumes:
+  vhost:
+  wwwroot:
+  init:
