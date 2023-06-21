@@ -42,9 +42,6 @@ services:
     volumes:
       - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
-      - init:/init
-    environment:
-      - EXAMPLE_DOMAIN=discuz.dujun.tk
     ports:
       - "11000:80"
     tty: true
