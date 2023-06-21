@@ -1,0 +1,78 @@
+#MineAdmin 1.3.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/mineadmin
+    volumes:
+      - app:/wwwroot/app
+      - web:/wwwroot/web
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  php:
+    image: dujunio/php:8.0
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - app:/wwwroot/app
+    expose:
+      - "9501"
+    entrypoint: php /wwwroot/app/bin/hyperf.php start
+    healthcheck:
+      test: netstat -atn | grep 9501
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    depends_on:
+      - data
+    volumes:
+      - web:/wwwroot/web
+    expose:
+      - "3000"
+    entrypoint: serve /wwwroot/web
+    healthcheck:
+      test: netstat -atn | grep 3000
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      nodejs:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13008:80"
+    tty: true
+    container_name: mineadmin
+
+volumes:
+  app:
+  web:
+  init:
+  vhost:

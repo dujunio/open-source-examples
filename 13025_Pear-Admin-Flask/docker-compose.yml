@@ -1,0 +1,43 @@
+#Pear Admin Flask
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pear-admin-flask
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    ports:
+      - "13025:5000"
+    healthcheck:
+      test: curl -f http://localhost:5000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+    container_name: pear-admin-flask
+
+volumes:
+  wwwroot:
+  init:

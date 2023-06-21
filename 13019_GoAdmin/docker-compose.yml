@@ -1,0 +1,44 @@
+#GoAdmin 1.2.24
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/goadmin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    tty: true
+
+  go:
+    image: dujunio/go:1.20
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    expose:
+      - "9033"
+    working_dir: /wwwroot/app
+    entrypoint: ./server
+    healthcheck:
+      test: netstat -atn | grep 9033
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      go:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13019:80"
+    tty: true
+    container_name: goadmin
+
+volumes:
+  vhost:
+  wwwroot:

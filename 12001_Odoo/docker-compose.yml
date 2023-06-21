@@ -1,0 +1,45 @@
+#Odoo 16.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/odoo
+    volumes:
+      - init:/init
+      - opt:/opt
+    tty: true
+
+  postgresql:
+    image: dujunio/postgresql:13
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=odoo.dujun.tk
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    volumes:
+      - init:/init
+      - opt:/opt
+    ports:
+      - "12001:8069"
+    healthcheck:
+      test: curl -f http://localhost:8069
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+    privileged: true
+    container_name: odoo
+
+volumes:
+  init:
+  opt:

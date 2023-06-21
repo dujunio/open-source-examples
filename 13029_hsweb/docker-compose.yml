@@ -1,0 +1,31 @@
+#hsweb 3.0.9
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hsweb
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "13029:8089"
+    working_dir: /wwwroot/app
+    entrypoint: java -jar -server -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:-OmitStackTraceInFastThrow -Djava.security.egd=file:/dev/./urandom hsweb-demo.jar
+    healthcheck:
+      test: curl -f http://localhost:8089
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: hsweb
+
+volumes:
+  wwwroot:

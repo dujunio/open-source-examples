@@ -1,0 +1,59 @@
+#RuoYi 4.7.7
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ruoyi
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from ry.sys_user_role"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  java:
+    image: dujunio/java:20
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    expose:
+      - "80"
+    entrypoint: java -jar /wwwroot/app/ruoyi-admin.jar
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      java:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13027:80"
+    tty: true
+    container_name: ruoyi
+
+volumes:
+  vhost:
+  init:
+  wwwroot:

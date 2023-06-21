@@ -1,0 +1,46 @@
+#TIMO 2.0.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/timo
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from timo.sys_user_role"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "13030:8080"
+    entrypoint: java -jar /wwwroot/app/Timo-2.0.3.jar
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: timo
+
+volumes:
+  init:
+  wwwroot:

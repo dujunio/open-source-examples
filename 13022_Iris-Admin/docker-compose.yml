@@ -1,0 +1,62 @@
+#Iris Admin 1.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/iris-admin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from iris_admin.casbin_rule"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  go:
+    image: dujunio/iris-admin
+    depends_on:
+      mysql:
+        condition: service_healthy
+    expose:
+      - "10087"
+    working_dir: /wwwroot/server
+    entrypoint: ./admin
+    healthcheck:
+      test: netstat -atn | grep 10087
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      go:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+      - init:/init
+    ports:
+      - "13022:80"
+    environment:
+      - EXAMPLE_DOMAIN=iris-admin.dujun.tk
+    tty: true
+    container_name: iris-admin
+
+volumes:
+  vhost:
+  web:
+  init:

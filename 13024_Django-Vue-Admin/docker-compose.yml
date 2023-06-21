@@ -1,0 +1,47 @@
+#Django-Vue-Admin 2.1.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/django-vue-admin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - server:/wwwroot/server
+      - web:/wwwroot/web
+      - init:/init
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    volumes:
+      - server:/wwwroot/server
+      - init:/init
+    expose:
+      - "8000"
+    healthcheck:
+      test: curl -f http://localhost:8000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      python:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+    ports:
+      - "13024:80"
+    tty: true
+    container_name: django-vue-admin
+
+volumes:
+  vhost:
+  web:
+  server:
+  init:

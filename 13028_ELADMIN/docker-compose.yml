@@ -1,0 +1,72 @@
+#ELADMIN 2.6
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/eladmin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+      - server:/wwwroot/server
+      - web:/wwwroot/web
+      - home:/home
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from eladmin.tool_qiniu_content"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - server:/wwwroot/server
+      - home:/home
+    expose:
+      - "8000"
+    entrypoint: java -jar /wwwroot/server/eladmin-system-2.6.jar
+    healthcheck:
+      test: curl -f http://localhost:8000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      java:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=eladmin.dujun.tk
+    ports:
+      - "13028:80"
+    tty: true
+    container_name: eladmin
+
+volumes:
+  vhost:
+  init:
+  server:
+  web:
+  home:

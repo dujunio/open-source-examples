@@ -1,0 +1,68 @@
+#Simple Admin 1.0.5
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/simple-admin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+      - server:/wwwroot/server
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from simple_admin.user_roles"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  go:
+    image: dujunio/go:1.20
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - server:/wwwroot/server
+      - init:/init
+    expose:
+      - "9100"
+    healthcheck:
+      test: netstat -atn | grep 9100
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      go:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+    ports:
+      - "13021:80"
+    tty: true
+    container_name: simple-admin
+
+volumes:
+  vhost:
+  web:
+  init:
+  server:
