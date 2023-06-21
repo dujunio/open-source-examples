@@ -1,0 +1,27 @@
+#2048
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/2048
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15400:80"
+    tty: true
+    container_name: '2048'
+
+volumes:
+  wwwroot:
+  vhost:

@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  nodejs:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01013_nodejs_18
+      dockerfile: Dockerfile
+    image: dujunio/nodejs:18
+
+  docsify:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/docsify

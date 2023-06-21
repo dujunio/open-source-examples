@@ -1,0 +1,27 @@
+#六边形俄罗斯方块（Hextris）
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hextris
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15301:80"
+    tty: true
+    container_name: hextris
+
+volumes:
+  wwwroot:
+  vhost:

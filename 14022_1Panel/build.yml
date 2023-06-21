@@ -1,0 +1,29 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  docker:
+    build:
+      context: ../00000_BASE/04000_docker
+      dockerfile: Dockerfile
+    image: dujunio/docker
+
+  nginx:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03000_nginx
+      dockerfile: Dockerfile
+    image: dujunio/nginx
+
+  1panel:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/1panel
+    privileged: true

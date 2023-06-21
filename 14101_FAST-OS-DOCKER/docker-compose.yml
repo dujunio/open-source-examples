@@ -1,0 +1,33 @@
+#FAST OS DOCKER 23.04.09
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/fast-os-docker
+    volumes:
+      - opt:/opt
+      - init:/init
+    tty: true
+
+  docker:
+    image: dujunio/docker
+    depends_on:
+      - data
+    volumes:
+      - opt:/opt
+      - init:/init
+    ports:
+      - "14101:8081"
+    healthcheck:
+      test: netstat -atn | grep 8081
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: fast-os-docker
+
+volumes:
+  opt:
+  init:

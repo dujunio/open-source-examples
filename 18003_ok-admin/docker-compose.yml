@@ -1,0 +1,27 @@
+#ok-admin 2.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ok-admin
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "18003:80"
+    tty: true
+    container_name: ok-admin
+
+volumes:
+  wwwroot:
+  vhost:

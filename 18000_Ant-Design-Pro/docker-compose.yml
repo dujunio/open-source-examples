@@ -1,0 +1,46 @@
+#Ant Design Pro 6.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ant-design-pro
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "3000"
+      - "8001"
+    healthcheck:
+      test: netstat -atn | grep 3000
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      nodejs:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "18000:80"
+    tty: true
+    container_name: ant-design-pro
+
+volumes:
+  wwwroot:
+  init:
+  vhost:

@@ -1,0 +1,36 @@
+#Portainer CE 2.18.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/portainer
+    volumes:
+      - data:/data
+      - portainer:/opt/portainer
+      - init:/init
+    tty: true
+
+  docker:
+    image: dujunio/docker
+    depends_on:
+      - data
+    volumes:
+      - data:/data
+      - portainer:/opt/portainer
+      - init:/init
+    ports:
+      - "14100:9000"
+    healthcheck:
+      test: netstat -atn | grep 9000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: portainer
+
+volumes:
+  data:
+  portainer:
+  init:

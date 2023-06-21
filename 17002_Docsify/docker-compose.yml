@@ -1,0 +1,31 @@
+#Docsify 4.13.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/docsify
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    working_dir: /wwwroot/app
+    entrypoint: npx docsify serve docs
+    ports:
+      - "17002:3000"
+    healthcheck:
+      test: curl -f http://localhost:3000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: docsify
+
+volumes:
+  wwwroot:

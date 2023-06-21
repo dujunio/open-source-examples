@@ -1,0 +1,17 @@
+#宝塔面板 7.7.0
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/baota
+    ports:
+      - "14000:8888"
+    entrypoint: /entrypoint
+    healthcheck:
+      test: netstat -atn | grep 8888
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: baota

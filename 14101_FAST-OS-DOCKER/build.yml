@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+  docker:
+    build:
+      context: ../00000_BASE/04000_docker
+      dockerfile: Dockerfile
+    image: dujunio/docker
+
+  fast-os-docker:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/fast-os-docker

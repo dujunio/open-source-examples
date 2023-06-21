@@ -1,0 +1,18 @@
+#WDCP 3.3.12
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/wdcp
+    ports:
+      - "14003:8080"
+    entrypoint: /bin/bash -c "service wdcp start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: wdcp

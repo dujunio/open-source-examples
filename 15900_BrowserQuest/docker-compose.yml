@@ -1,0 +1,49 @@
+#BrowserQuest
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/browserquest
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "8787"
+      - "8000"
+    environment:
+      - EXAMPLE_DOMAIN=browserquest.dujun.tk
+    healthcheck:
+      test: netstat -atn | grep 8787
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15900:80"
+    tty: true
+    container_name: browserquest
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

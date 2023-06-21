@@ -1,0 +1,17 @@
+#mdserver-web（大圣面板）0.12.1
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/mdserver-web
+    ports:
+      - "14006:80"
+    entrypoint: /bin/bash -c "mw start && mw close_admin_path && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: mdserver-web

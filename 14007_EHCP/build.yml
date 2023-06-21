@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+  ubuntu:
+    build:
+      context: ../00000_BASE/00020_ubuntu_18.04
+      dockerfile: Dockerfile
+    image: dujunio/ubuntu:18.04
+    privileged: true
+
+  ehcp:
+    depends_on:
+      - ubuntu
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/ehcp
+    privileged: true

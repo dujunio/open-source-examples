@@ -1,0 +1,27 @@
+#商店放置（shop-idle 2.4.4）
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/shop-idle
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15202:80"
+    tty: true
+    container_name: shop-idle
+
+volumes:
+  wwwroot:
+  vhost:

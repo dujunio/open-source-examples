@@ -1,0 +1,20 @@
+#Virtualmin 7.0.3
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/virtualmin
+    ports:
+      - "14014:80"
+    environment:
+      - EXAMPLE_DOMAIN=virtualmin.dujun.tk
+    entrypoint: /entrypoint
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: virtualmin

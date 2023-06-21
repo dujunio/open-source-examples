@@ -1,0 +1,37 @@
+#护卫神·主机大师 V3.0.0
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/hwsmaster
+    expose:
+      - "6588"
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    entrypoint: /bin/bash -c "/etc/init.d/hws start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 6588
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "14021:80"
+    tty: true
+    container_name: hwsmaster
+
+volumes:
+  vhost:
+  wwwroot:

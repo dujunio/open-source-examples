@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  nginx:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03000_nginx
+      dockerfile: Dockerfile
+    image: dujunio/nginx
+
+  centos:
+    build:
+      context: ../00000_BASE/00010_centos_7.9
+      dockerfile: Dockerfile
+    image: dujunio/centos:7.9
+
+  phpstudy:
+    depends_on:
+      - centos
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/phpstudy

@@ -1,0 +1,34 @@
+#easypanel 2.6.28
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/easypanel
+    expose:
+      - "3312"
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    entrypoint: /bin/bash -c "/etc/init.d/kangle start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 3312
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "14004:80"
+    tty: true
+    container_name: easypanel
+
+volumes:
+  vhost:

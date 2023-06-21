@@ -1,0 +1,18 @@
+#Cipi 3.1.15
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/cipi
+    ports:
+      - "14020:80"
+    entrypoint: /bin/bash -c "/etc/init.d/redis-server start && /etc/init.d/mysql start && /etc/init.d/php8.0-fpm start && /etc/init.d/nginx start && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: cipi

@@ -1,0 +1,27 @@
+#鲨鱼之心重制版（Shark Game Remaster）
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/shark-game-remaster
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15206:80"
+    tty: true
+    container_name: shark-game-remaster
+
+volumes:
+  wwwroot:
+  vhost:

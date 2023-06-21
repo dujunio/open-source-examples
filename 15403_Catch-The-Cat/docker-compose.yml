@@ -1,0 +1,27 @@
+#围住小猫
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/catch-the-cat
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15403:80"
+    tty: true
+    container_name: catch-the-cat
+
+volumes:
+  wwwroot:
+  vhost:

@@ -1,0 +1,17 @@
+version: '2.4'
+
+services:
+  centos:
+    build:
+      context: ../00000_BASE/00010_centos_7.9
+      dockerfile: Dockerfile
+    image: dujunio/centos:7.9
+
+  wdcp:
+    depends_on:
+      - centos
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/wdcp
+    privileged: true

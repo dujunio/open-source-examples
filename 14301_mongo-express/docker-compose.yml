@@ -1,0 +1,38 @@
+#mongo-express 1.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/mongo-express
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  mongodb:
+    image: dujunio/mongodb:4.4
+    privileged: true
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "14301:8081"
+    working_dir: /wwwroot/app/node_modules/mongo-express
+    entrypoint: node app.js
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: netstat -atn | grep 8081
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    tty: true
+    container_name: mongo-express
+
+volumes:
+  wwwroot:

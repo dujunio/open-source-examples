@@ -1,0 +1,18 @@
+#Vesta Control Panel 0.9.8
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/vesta
+    ports:
+      - "14011:80"
+    entrypoint: /bin/bash -c "/etc/init.d/vesta start && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: vesta

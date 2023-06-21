@@ -1,0 +1,49 @@
+#1Panel 1.2.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/1panel
+    volumes:
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+      - opt:/opt/1panel
+      - bin:/usr/local/bin
+    tty: true
+
+  docker:
+    image: dujunio/docker
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+      - opt:/opt/1panel
+      - bin:/usr/local/bin
+    expose:
+      - "8081"
+    healthcheck:
+      test: netstat -atn | grep 8081
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      docker:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "14022:80"
+    tty: true
+    container_name: 1panel
+
+volumes:
+  vhost:
+  opt:
+  bin:
+  init:

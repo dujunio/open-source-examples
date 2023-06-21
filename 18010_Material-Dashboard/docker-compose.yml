@@ -1,0 +1,27 @@
+#Material Dashboard 3.0.5
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/material-dashboard
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "18010:80"
+    tty: true
+    container_name: material-dashboard
+
+volumes:
+  wwwroot:
+  vhost:

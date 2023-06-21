@@ -1,0 +1,27 @@
+#ngx-admin 8.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ngx-admin
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "18007:80"
+    tty: true
+    container_name: ngx-admin
+
+volumes:
+  wwwroot:
+  vhost:

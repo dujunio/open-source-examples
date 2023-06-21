@@ -1,0 +1,39 @@
+#aaPanel 6.8.27
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/aapanel
+    expose:
+      - "7800"
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    entrypoint: /bin/bash -c "/etc/init.d/bt start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 7800
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "14013:80"
+    healthcheck:
+      test: ps axu | grep [n]ginx
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: aapanel
+
+volumes:
+  vhost:

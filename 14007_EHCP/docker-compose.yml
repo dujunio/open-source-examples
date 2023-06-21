@@ -1,0 +1,18 @@
+#EHCP 18.04.b
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/ehcp
+    ports:
+      - "14007:80"
+    entrypoint: /bin/bash -c "/etc/init.d/mysql start && /etc/init.d/ehcp start && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: ehcp

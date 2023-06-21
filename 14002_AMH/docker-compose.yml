@@ -1,0 +1,17 @@
+#AMH 7.0
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/amh
+    ports:
+      - "14002:8888"
+    entrypoint: /bin/bash -c "/etc/init.d/amh-start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 8888
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: amh

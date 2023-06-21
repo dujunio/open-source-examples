@@ -1,0 +1,18 @@
+#InPanel 1.1.1
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/inpanel
+    ports:
+      - "14017:8888"
+    entrypoint: /bin/bash -c "/etc/init.d/inpanel start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 8888
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: inpanel

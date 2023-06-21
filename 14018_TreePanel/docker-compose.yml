@@ -1,0 +1,34 @@
+#TreePanel 1.0.0
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/treepanel
+    expose:
+      - "9869"
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    entrypoint: /bin/bash -c "/etc/init.d/treepanel start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 9869
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "14018:80"
+    tty: true
+    container_name: treepanel
+
+volumes:
+  vhost:

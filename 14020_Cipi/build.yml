@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+  ubuntu:
+    build:
+      context: ../00000_BASE/00021_ubuntu_20.04
+      dockerfile: Dockerfile
+    image: dujunio/ubuntu:20.04
+    privileged: true
+
+  cipi:
+    depends_on:
+      - ubuntu
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/cipi
+    privileged: true

@@ -1,0 +1,27 @@
+#Cactus 静态网站
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/cactus-website
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13221:80"
+    tty: true
+    container_name: cactus-website
+
+volumes:
+  wwwroot:
+  vhost:

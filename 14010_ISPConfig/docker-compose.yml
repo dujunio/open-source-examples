@@ -1,0 +1,18 @@
+#ISPConfig 3.2.9
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/ispconfig
+    ports:
+      - "14010:8080"
+    entrypoint: /bin/bash -c "/etc/init.d/mariadb start && /etc/init.d/nginx start && /etc/init.d/php7.4-fpm start && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: ispconfig

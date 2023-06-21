@@ -1,0 +1,20 @@
+#Ajenti 2.2.4
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/ajenti
+    ports:
+      - "14012:8000"
+    environment:
+      - EXAMPLE_DOMAIN=ajenti.dujun.tk
+    entrypoint: /entrypoint
+    healthcheck:
+      test: netstat -atn | grep 8000
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: ajenti

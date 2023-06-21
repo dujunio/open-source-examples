@@ -1,0 +1,27 @@
+#13 层（Level 13 0.4.3）
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/level13
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15702:80"
+    tty: true
+    container_name: level13
+
+volumes:
+  wwwroot:
+  vhost:

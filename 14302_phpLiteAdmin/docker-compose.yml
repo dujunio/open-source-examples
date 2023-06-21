@@ -1,0 +1,36 @@
+#phpLiteAdmin 1.9.8.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/phpliteadmin
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "14302:80"
+    tty: true
+    container_name: phpliteadmin
+
+volumes:
+  wwwroot:
+  vhost:

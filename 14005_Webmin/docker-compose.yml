@@ -1,0 +1,20 @@
+#Webmin 2.010
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/webmin
+    ports:
+      - "14005:80"
+    environment:
+      - EXAMPLE_DOMAIN=webmin.dujun.tk
+    entrypoint: /entrypoint
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: webmin

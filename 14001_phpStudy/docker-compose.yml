@@ -1,0 +1,33 @@
+#phpStudy（小皮面板）X1.29
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/phpstudy
+    expose:
+      - "9080"
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    entrypoint: /bin/bash -c "phpstudy -start && /bin/bash"
+    healthcheck:
+      test: netstat -atn | grep 9080
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "14001:80"
+    tty: true
+    container_name: phpstudy
+
+volumes:
+  vhost:

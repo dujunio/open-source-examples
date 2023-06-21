@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  nginx:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03000_nginx
+      dockerfile: Dockerfile
+    image: dujunio/nginx
+
+  astro-website:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/astro-website

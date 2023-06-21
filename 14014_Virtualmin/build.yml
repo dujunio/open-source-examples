@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+  rockylinux:
+    build:
+      context: ../00000_BASE/00030_rockylinux_9.1
+      dockerfile: Dockerfile
+    image: dujunio/rockylinux:9.1
+    privileged: true
+
+  virtualmin:
+    depends_on:
+      - rockylinux
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/virtualmin
+    privileged: true

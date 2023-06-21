@@ -1,0 +1,30 @@
+#EAdmin 2.1.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/eadmin
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "18011:3000"
+    entrypoint: serve /wwwroot/app
+    healthcheck:
+      test: netstat -atn | grep 3000
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: eadmin
+
+volumes:
+  wwwroot:

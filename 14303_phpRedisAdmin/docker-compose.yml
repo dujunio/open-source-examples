@@ -1,0 +1,48 @@
+#phpRedisAdmin 1.18.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/phpredisadmin
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      redis:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "14303:80"
+    tty: true
+    container_name: phpredisadmin
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

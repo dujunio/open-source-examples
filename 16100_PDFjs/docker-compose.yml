@@ -1,0 +1,27 @@
+#PDF.js 3.6.172
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pdfjs
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "16100:80"
+    tty: true
+    container_name: pdfjs
+
+volumes:
+  wwwroot:
+  vhost:

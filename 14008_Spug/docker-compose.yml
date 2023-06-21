@@ -1,0 +1,29 @@
+#Spug 3.2.5
+
+version: '2.4'
+
+services:
+  mysql:
+    image: dujunio/mariadb:10.5
+    volumes:
+      - init:/init
+    tty: true
+
+  app:
+    image: dujunio/spug
+    volumes:
+      - init:/init
+    ports:
+      - "14008:80"
+    entrypoint: /bin/bash -c "supervisord -c /etc/supervisord.conf && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    privileged: true
+    container_name: spug
+
+volumes:
+  init:
