@@ -1,7 +1,15 @@
 version: '2.4'
 
 services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
   docker:
+    depends_on:
+      - debian
     build:
       context: ../00000_BASE/04000_docker
       dockerfile: Dockerfile
