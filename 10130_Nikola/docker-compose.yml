@@ -1,0 +1,32 @@
+#Nikola 8.2.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nikola
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=nikola.dujun.tk
+    ports:
+      - "10130:80"
+    tty: true
+    container_name: nikola
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
