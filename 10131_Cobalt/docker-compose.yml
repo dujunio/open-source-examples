@@ -1,14 +1,13 @@
-#Nikola 静态网站
+#Cobalt 0.19.0
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/nikola-website
+    image: dujunio/cobalt
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
     tty: true
 
   nginx:
@@ -18,15 +17,11 @@ services:
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
-    environment:
-      - EXAMPLE_DOMAIN=nikola-website.dujun.tk
     ports:
-      - "13222:80"
+      - "10131:80"
     tty: true
-    container_name: nikola-website
+    container_name: cobalt
 
 volumes:
   wwwroot:
   vhost:
-  init:
