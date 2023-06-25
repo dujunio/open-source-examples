@@ -1,0 +1,32 @@
+#Nikola 静态网站
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nikola-website
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=nikola-website.dujun.local
+    ports:
+      - "13222:80"
+    tty: true
+    container_name: nikola-website
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
