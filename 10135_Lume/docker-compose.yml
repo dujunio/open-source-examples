@@ -1,0 +1,27 @@
+#Lume 1.17.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/lume
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10135:80"
+    tty: true
+    container_name: lume
+
+volumes:
+  wwwroot:
+  vhost:
