@@ -1,0 +1,27 @@
+#Plenti 静态网站
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/plenti-website
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13224:80"
+    tty: true
+    container_name: plenti-website
+
+volumes:
+  wwwroot:
+  vhost:

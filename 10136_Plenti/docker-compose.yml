@@ -1,0 +1,27 @@
+#Plenti 0.6.17
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/plenti
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10136:80"
+    tty: true
+    container_name: plenti
+
+volumes:
+  wwwroot:
+  vhost:
