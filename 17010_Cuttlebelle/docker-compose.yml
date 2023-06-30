@@ -1,14 +1,13 @@
-#Couscous 1.10.0
+#Cuttlebelle 1.0.0
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/couscous
+    image: dujunio/cuttlebelle
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
     tty: true
 
   nginx:
@@ -18,15 +17,11 @@ services:
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
-    environment:
-      - EXAMPLE_DOMAIN=couscous.dujun.tk
     ports:
-      - "17009:80"
+      - "17010:80"
     tty: true
-    container_name: couscous
+    container_name: cuttlebelle
 
 volumes:
   wwwroot:
   vhost:
-  init:
