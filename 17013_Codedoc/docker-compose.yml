@@ -1,0 +1,27 @@
+#Codedoc 0.3.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/codedoc
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "17013:80"
+    tty: true
+    container_name: codedoc
+
+volumes:
+  wwwroot:
+  vhost:
