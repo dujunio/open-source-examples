@@ -15,24 +15,8 @@ services:
       dockerfile: Dockerfile
     image: dujunio/nginx
 
-  redis:
-    depends_on:
-      - debian
-    build:
-      context: ../00000_BASE/02020_redis
-      dockerfile: Dockerfile
-    image: dujunio/redis
-
-  python:
-    depends_on:
-      - debian
-    build:
-      context: ../00000_BASE/01021_python_3
-      dockerfile: Dockerfile
-    image: dujunio/python:3
-
-  spirit:
+  verless:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/spirit
+    image: dujunio/verless
