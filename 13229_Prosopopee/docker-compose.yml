@@ -1,0 +1,27 @@
+#Prosopopee 1.1.5
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/prosopopee
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13229:80"
+    tty: true
+    container_name: prosopopee
+
+volumes:
+  wwwroot:
+  vhost:
