@@ -1,0 +1,27 @@
+#Capri 5.2.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/capri
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13231:80"
+    tty: true
+    container_name: capri
+
+volumes:
+  wwwroot:
+  vhost:
