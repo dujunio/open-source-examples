@@ -1,0 +1,27 @@
+#Tropical 11.4.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/tropical
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13232:80"
+    tty: true
+    container_name: tropical
+
+volumes:
+  wwwroot:
+  vhost:
