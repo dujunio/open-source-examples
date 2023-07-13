@@ -1,0 +1,27 @@
+#tumblelog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/tumblelog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10145:80"
+    tty: true
+    container_name: tumblelog
+
+volumes:
+  wwwroot:
+  vhost:
