@@ -1,0 +1,27 @@
+#Bookdown 1.1.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/bookdown
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "17015:80"
+    tty: true
+    container_name: bookdown
+
+volumes:
+  wwwroot:
+  vhost:
