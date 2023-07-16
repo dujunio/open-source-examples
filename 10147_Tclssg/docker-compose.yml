@@ -1,0 +1,27 @@
+#Tclssg 2.2.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/tclssg
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10147:80"
+    tty: true
+    container_name: tclssg
+
+volumes:
+  wwwroot:
+  vhost:
