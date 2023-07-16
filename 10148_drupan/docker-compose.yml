@@ -1,0 +1,27 @@
+#drupan 3.0.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/drupan
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10148:80"
+    tty: true
+    container_name: drupan
+
+volumes:
+  wwwroot:
+  vhost:
