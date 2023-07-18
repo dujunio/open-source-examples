@@ -1,0 +1,27 @@
+#Harold 0.8.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/harold
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10150:80"
+    tty: true
+    container_name: harold
+
+volumes:
+  wwwroot:
+  vhost:
