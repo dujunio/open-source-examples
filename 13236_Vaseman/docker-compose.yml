@@ -1,0 +1,27 @@
+#Vaseman 4.0.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/vaseman
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13236:80"
+    tty: true
+    container_name: vaseman
+
+volumes:
+  wwwroot:
+  vhost:
