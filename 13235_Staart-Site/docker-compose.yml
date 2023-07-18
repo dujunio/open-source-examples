@@ -1,0 +1,27 @@
+#Staart Site 2.4.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/staart-site
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "13235:80"
+    tty: true
+    container_name: staart-site
+
+volumes:
+  wwwroot:
+  vhost:
