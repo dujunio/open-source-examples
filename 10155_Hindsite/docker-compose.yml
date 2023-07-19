@@ -1,0 +1,27 @@
+#Hindsite 2.0.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hindsite
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10155:80"
+    tty: true
+    container_name: hindsite
+
+volumes:
+  wwwroot:
+  vhost:
