@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=emlog.dujun.local
+      - EXAMPLE_DOMAIN=emlog.dujun.tk
     tty: true
 
   php:
