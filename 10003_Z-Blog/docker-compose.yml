@@ -1,0 +1,48 @@
+#Z-Blog 1.7.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/z-blog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:8.1
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      mysql:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10003:80"
+    tty: true
+    container_name: z-blog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
