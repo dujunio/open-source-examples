@@ -1,0 +1,34 @@
+#Halo 2.7
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/halo
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    restart: on-failure
+    healthcheck:
+      test: curl -f http://localhost:8090/actuator/health/readiness
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    expose:
+      - "8090"
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10004:80"
+    tty: true
+    container_name: halo
+
+volumes:
+  vhost:
