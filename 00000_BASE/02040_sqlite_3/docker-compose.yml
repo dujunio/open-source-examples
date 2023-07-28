@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  sqlite:
+    image: dujunio/sqlite:3
+    container_name: sqlite
+    tty: true

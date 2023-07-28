@@ -7,6 +7,14 @@ services:
       dockerfile: Dockerfile
     image: dujunio/debian
 
+  sqlite:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02040_sqlite_3
+      dockerfile: Dockerfile
+    image: dujunio/sqlite:3
+
   java:
     depends_on:
       - debian
@@ -14,14 +22,6 @@ services:
       context: ../00000_BASE/01040_java_1.8
       dockerfile: Dockerfile
     image: dujunio/java:1.8
-
-  nginx:
-    depends_on:
-      - debian
-    build:
-      context: ../00000_BASE/03000_nginx
-      dockerfile: Dockerfile
-    image: dujunio/nginx
 
   tale:
     build:
