@@ -1,0 +1,31 @@
+#Tale 2.0.5
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/tale
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10007:9000"
+    working_dir: /wwwroot/app
+    entrypoint: /bin/bash -c "./tool start && /bin/sh"
+    healthcheck:
+      test: curl -f http://localhost:9000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: tale
+
+volumes:
+  wwwroot:

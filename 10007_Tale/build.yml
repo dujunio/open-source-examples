@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  java:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01040_java_1.8
+      dockerfile: Dockerfile
+    image: dujunio/java:1.8
+
+  tale:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/tale
