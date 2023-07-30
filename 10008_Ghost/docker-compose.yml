@@ -1,0 +1,34 @@
+#Ghost 5.55.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ghost
+    volumes:
+      - var:/var
+      - init:/init
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    depends_on:
+      - data
+    volumes:
+      - var:/var
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=ghost.dujun.tk
+    ports:
+      - "10008:2368"
+    healthcheck:
+      test: curl -f http://localhost:2368
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: ghost
+
+volumes:
+  var:
+  init:

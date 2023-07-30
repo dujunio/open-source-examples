@@ -31,7 +31,7 @@ services:
     ports:
       - "10007:9000"
     working_dir: /wwwroot/app
-    entrypoint: /bin/bash -c "./tool start && /bin/sh"
+    entrypoint: /bin/bash -c "sh ./tool start && /bin/sh"
     healthcheck:
       test: curl -f http://localhost:9000
       interval: 5s
