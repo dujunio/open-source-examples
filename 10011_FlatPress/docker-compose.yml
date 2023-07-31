@@ -1,0 +1,41 @@
+#FlatPress 1.2.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/flatpress
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:8.1
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=flatpress.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10011:80"
+    tty: true
+    container_name: flatpress
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
