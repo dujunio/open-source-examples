@@ -1,0 +1,58 @@
+#NiceFish 15.2.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nicefish
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+      - server:/wwwroot/server
+      - web:/wwwroot/web
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  java:
+    image: dujunio/java:20
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - server:/wwwroot/server
+    expose:
+      - "8080"
+    entrypoint: java -jar /wwwroot/server/nicefish-cms-1.1.jar
+    healthcheck:
+      test: netstat -ant | grep 8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      java:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+    ports:
+      - "10013:80"
+    tty: true
+    container_name: nicefish
+
+volumes:
+  vhost:
+  init:
+  server:
+  web:
