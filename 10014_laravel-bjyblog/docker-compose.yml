@@ -1,0 +1,57 @@
+#laravel-bjyblog 17.0.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/laravel-bjyblog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  php:
+    image: dujunio/php:8.1
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=laravel-bjyblog.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10014:80"
+    tty: true
+    container_name: laravel-bjyblog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
