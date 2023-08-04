@@ -1,0 +1,41 @@
+#My-Blog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/my-blog
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  java:
+    image: dujunio/java:20
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10015:28083"
+    entrypoint: java -jar /wwwroot/app/my-blog-4.0.0.jar
+    healthcheck:
+      test: curl -f http://localhost:28083
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: my-blog
+
+volumes:
+  init:
+  wwwroot:
