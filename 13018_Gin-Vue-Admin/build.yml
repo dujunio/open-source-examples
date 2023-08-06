@@ -15,6 +15,14 @@ services:
       dockerfile: Dockerfile
     image: dujunio/mariadb:10.5
 
+  go:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01030_go_1.20
+      dockerfile: Dockerfile
+    image: dujunio/go:1.20
+
   nginx:
     depends_on:
       - debian
