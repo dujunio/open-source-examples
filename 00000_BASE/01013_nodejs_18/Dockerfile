@@ -10,7 +10,7 @@ RUN apt-get update -y &&\
     apt-get install nodejs -y &&\
     npm config set registry https://registry.npmmirror.com/ &&\
     npm install -g npm &&\
-    npm install serve -g
+    npm install serve pm2 -g
 
 ENTRYPOINT /entrypoint
 
