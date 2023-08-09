@@ -1,0 +1,58 @@
+#CoreBlog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/coreblog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=coreblog.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      mysql:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10018:80"
+    tty: true
+    container_name: coreblog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
