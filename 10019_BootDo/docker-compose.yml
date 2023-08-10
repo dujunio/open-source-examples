@@ -1,0 +1,52 @@
+#BootDo 2.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/bootdo
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: mysql -e "select * from bootdo.sys_user_role"
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10019:80"
+    entrypoint: java -jar /wwwroot/app/bootdo-2.0.0.jar
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: bootdo
+
+volumes:
+  init:
+  wwwroot:
