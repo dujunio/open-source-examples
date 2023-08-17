@@ -1,0 +1,40 @@
+#ZrLog 2.2.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/zrlog
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  tomcat:
+    image: dujunio/tomcat:9
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10024:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: zrlog
+
+volumes:
+  wwwroot:
+  init:
