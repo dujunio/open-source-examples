@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  tomcat:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/tomcat:9
