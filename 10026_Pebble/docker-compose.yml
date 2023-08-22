@@ -1,0 +1,29 @@
+#Pebble 2.6.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pebble
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  tomcat:
+    image: dujunio/tomcat:9
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10026:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: pebble
+
+volumes:
+  wwwroot:

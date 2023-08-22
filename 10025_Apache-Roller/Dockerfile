@@ -1,4 +1,4 @@
-#apache-roller 6.1.2
+#Apache Roller 6.1.2
 
 FROM busybox
 MAINTAINER dujun
