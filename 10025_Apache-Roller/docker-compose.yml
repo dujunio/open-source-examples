@@ -1,0 +1,52 @@
+#apache-roller 6.1.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/apache-roller
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  tomcat:
+    image: dujunio/tomcat:9
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      tomcat:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10025:80"
+    tty: true
+    container_name: apache-roller
+
+volumes:
+  wwwroot:
+  init:
+  vhost:
