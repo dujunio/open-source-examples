@@ -1,4 +1,4 @@
-#ScarecrowBlog
+#ScarecrowBlog 2.0
 
 FROM busybox
 MAINTAINER dujun

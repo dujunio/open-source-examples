@@ -1,0 +1,8 @@
+#PJ Blog 1.5.3
+
+FROM busybox
+MAINTAINER dujun
+
+ADD data.txz /
+
+RUN chown -fR www-data:www-data /wwwroot/app
