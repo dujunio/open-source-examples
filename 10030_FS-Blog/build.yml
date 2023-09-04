@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  java:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01040_java_1.8
+      dockerfile: Dockerfile
+    image: dujunio/java:1.8
+
+  fs-blog:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/fs-blog
