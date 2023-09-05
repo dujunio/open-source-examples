@@ -1,0 +1,42 @@
+#Hexo Boot 4.3.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hexo-boot
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10033:8080"
+    working_dir: /wwwroot
+    entrypoint: java -jar app.jar
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: hexo-boot
+
+volumes:
+  wwwroot:
+  init:
