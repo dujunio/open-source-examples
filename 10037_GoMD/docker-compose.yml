@@ -1,0 +1,45 @@
+#GoMD
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/gomd
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    tty: true
+
+  go:
+    image: dujunio/go:1.20
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    expose:
+      - "8080"
+    working_dir: /wwwroot/app
+    entrypoint: ./GoMD
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      go:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10037:80"
+    tty: true
+    container_name: gomd
+
+volumes:
+  wwwroot:
+  vhost:
