@@ -23,8 +23,8 @@ services:
       dockerfile: Dockerfile
     image: dujunio/tomcat:9
 
-  autublog:
+  antublog:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/autublog
+    image: dujunio/antublog

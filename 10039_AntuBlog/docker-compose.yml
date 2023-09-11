@@ -4,7 +4,7 @@ version: '2.4'
 
 services:
   data:
-    image: dujunio/autublog
+    image: dujunio/antublog
     volumes:
       - wwwroot:/wwwroot
       - init:/init
@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=autublog.dujun.tk
+      - EXAMPLE_DOMAIN=antublog.dujun.tk
     ports:
       - "10039:8080"
     healthcheck:
@@ -36,7 +36,7 @@ services:
       timeout: 10s
       retries: 10
     tty: true
-    container_name: autublog
+    container_name: antublog
 
 volumes:
   wwwroot:
