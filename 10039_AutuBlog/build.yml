@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  tomcat:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03010_tomcat_9
+      dockerfile: Dockerfile
+    image: dujunio/tomcat:9
+
+  autublog:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/autublog
