@@ -1,0 +1,47 @@
+#h3blog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/h3blog
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "5000"
+    healthcheck:
+      test: netstat -atn | grep 5000
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      python:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10042:80"
+    tty: true
+    container_name: h3blog
+
+volumes:
+  wwwroot:
+  init:
+  vhost:
