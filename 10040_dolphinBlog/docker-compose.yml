@@ -1,0 +1,42 @@
+#dolphinBlog 3.1.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dolphinblog
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  java:
+    image: dujunio/java:1.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10040:80"
+    working_dir: /wwwroot/app
+    entrypoint: java -jar dolphin-web.jar
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: dolphinblog
+
+volumes:
+  wwwroot:
+  init:
