@@ -1,0 +1,31 @@
+#Essay 4.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/essay
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    volumes:
+      - wwwroot:/wwwroot
+    depends_on:
+      - data
+    ports:
+      - "10047:7001"
+    working_dir: /wwwroot/app
+    entrypoint: /bin/bash -c "npm run start && /bin/sh"
+    healthcheck:
+      test: curl -f http://localhost:7001
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: essay
+
+volumes:
+  wwwroot:
