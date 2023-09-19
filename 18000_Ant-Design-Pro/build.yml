@@ -11,7 +11,7 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/01013_nodejs_18
+      context: ../00000_BASE/01011_nodejs_18
       dockerfile: Dockerfile
     image: dujunio/nodejs:18
 

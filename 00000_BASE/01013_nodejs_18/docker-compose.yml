@@ -1,7 +1,0 @@
-version: '2.4'
-
-services:
-  nodejs:
-    image: dujunio/nodejs:18
-    container_name: nodejs
-    tty: true

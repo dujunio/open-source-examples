@@ -1,7 +1,0 @@
-version: '2.4'
-
-services:
-  python:
-    image: dujunio/python:3
-    container_name: python
-    tty: true

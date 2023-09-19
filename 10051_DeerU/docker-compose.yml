@@ -1,0 +1,47 @@
+#DeerU 2.0.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/deeru
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "8000"
+    healthcheck:
+      test: netstat -atn | grep 8000
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      python:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10051:80"
+    tty: true
+    container_name: deeru
+
+volumes:
+  wwwroot:
+  init:
+  vhost:

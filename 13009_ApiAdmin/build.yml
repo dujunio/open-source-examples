@@ -35,7 +35,7 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/01012_nodejs_16
+      context: ../00000_BASE/01010_nodejs_16
       dockerfile: Dockerfile
     image: dujunio/nodejs:16
 
