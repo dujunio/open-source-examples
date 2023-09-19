@@ -11,17 +11,9 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/01000_php_5.6
+      context: ../00000_BASE/01001_php_7.4
       dockerfile: Dockerfile
-    image: dujunio/php:5.6
-
-  mysql:
-    depends_on:
-      - debian
-    build:
-      context: ../00000_BASE/02000_mariadb_10.5
-      dockerfile: Dockerfile
-    image: dujunio/mariadb:10.5
+    image: dujunio/php:7.4
 
   nginx:
     depends_on:
@@ -31,8 +23,8 @@ services:
       dockerfile: Dockerfile
     image: dujunio/nginx
 
-  zswin:
+  bo-blog:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/zswin
+    image: dujunio/bo-blog
