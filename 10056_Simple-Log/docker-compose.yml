@@ -1,13 +1,13 @@
-#Textpattern 4.8.8
+#Simple-Log 1.7
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/textpattern
+    image: dujunio/simple-log
     volumes:
-      - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
       - init:/init
     tty: true
 
@@ -18,14 +18,13 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=textpattern.dujun.tk
+      - EXAMPLE_DOMAIN=simple-log.dujun.tk
     tty: true
 
   php:
-    image: dujunio/php:5.6
+    image: dujunio/php:7.4
     depends_on:
-      mysql:
-        condition: service_healthy
+      - data
     volumes:
       - wwwroot:/wwwroot
     tty: true
@@ -33,15 +32,17 @@ services:
   nginx:
     image: dujunio/nginx
     depends_on:
+      mysql:
+        condition: service_healthy
       php:
         condition: service_healthy
     volumes:
       - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
     ports:
-      - "10055:80"
+      - "10056:80"
     tty: true
-    container_name: textpattern
+    container_name: simple-log
 
 volumes:
   wwwroot:
