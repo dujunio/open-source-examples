@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=textcube.dujun.local
+      - EXAMPLE_DOMAIN=textcube.dujun.tk
     tty: true
 
   nginx:
