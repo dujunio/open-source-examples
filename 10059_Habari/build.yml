@@ -31,8 +31,8 @@ services:
       dockerfile: Dockerfile
     image: dujunio/nginx
 
-  nucleus:
+  habari:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/nucleus
+    image: dujunio/habari
