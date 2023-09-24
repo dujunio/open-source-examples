@@ -24,7 +24,8 @@ services:
   php:
     image: dujunio/php:5.6
     depends_on:
-      - data
+      mysql:
+        condition: service_healthy
     volumes:
       - wwwroot:/wwwroot
     tty: true
@@ -32,8 +33,6 @@ services:
   nginx:
     image: dujunio/nginx
     depends_on:
-      mysql:
-        condition: service_healthy
       php:
         condition: service_healthy
     volumes:

@@ -1,0 +1,42 @@
+#LittleBlog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/littleblog
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    volumes:
+      - wwwroot:/wwwroot
+    depends_on:
+      mysql:
+        condition: service_healthy
+    working_dir: /wwwroot/app
+    entrypoint: npm run start
+    ports:
+      - "10058:80"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: littleblog
+
+volumes:
+  init:
+  wwwroot:
