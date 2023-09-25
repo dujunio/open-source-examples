@@ -1,0 +1,41 @@
+#iMarkChina 2.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/imarkchina
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=imarkchina.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10063:80"
+    tty: true
+    container_name: imarkchina
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
