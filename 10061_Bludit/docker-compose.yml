@@ -1,10 +1,10 @@
-#Nibbleblog 4.0.5
+#Bludit 3.15.0
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/nibbleblog
+    image: dujunio/bludit
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=nibbleblog.dujun.tk
+      - EXAMPLE_DOMAIN=bludit.dujun.tk
     tty: true
 
   nginx:
@@ -31,9 +31,9 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
     ports:
-      - "10060:80"
+      - "10061:80"
     tty: true
-    container_name: nibbleblog
+    container_name: bludit
 
 volumes:
   wwwroot:
