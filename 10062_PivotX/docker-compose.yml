@@ -1,0 +1,36 @@
+#PivotX 3.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pivotx
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  php:
+    image: dujunio/php:8.2
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10062:80"
+    tty: true
+    container_name: pivotx
+
+volumes:
+  wwwroot:
+  vhost:
