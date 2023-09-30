@@ -17,6 +17,8 @@ services:
       - data
     volumes:
       - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=geeklog.dujun.tk
     tty: true
 
   php:
@@ -26,6 +28,9 @@ services:
         condition: service_healthy
     volumes:
       - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=geeklog.dujun.tk
     tty: true
 
   nginx:
@@ -38,9 +43,6 @@ services:
     volumes:
       - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
-      - init:/init
-    environment:
-      - EXAMPLE_DOMAIN=geeklog.dujun.tk
     ports:
       - "10067:80"
     tty: true
