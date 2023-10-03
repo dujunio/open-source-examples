@@ -1,0 +1,41 @@
+#Drukkar 2.0.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/drukkar
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:5.6
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=drukkar.dujun.local
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10071:80"
+    tty: true
+    container_name: drukkar
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
