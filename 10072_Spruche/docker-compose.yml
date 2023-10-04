@@ -1,0 +1,43 @@
+#Spruche 0.1.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/spruche
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=spruche.dujun.tk
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "10072:3000"
+    healthcheck:
+      test: curl -f http://localhost:3000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: spruche
+
+volumes:
+  init:
+  wwwroot:

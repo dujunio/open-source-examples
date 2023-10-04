@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=drukkar.dujun.local
+      - EXAMPLE_DOMAIN=drukkar.dujun.tk
     tty: true
 
   nginx:
