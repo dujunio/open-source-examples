@@ -1,0 +1,42 @@
+#webman-blog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/webman-blog
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:8.1
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10074:8787"
+    working_dir: /wwwroot/app
+    entrypoint: php start.php start
+    healthcheck:
+      test: curl -f http://localhost:8787
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: webman-blog
+
+volumes:
+  wwwroot:
+  init:
