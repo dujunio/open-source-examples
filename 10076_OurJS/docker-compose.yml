@@ -1,0 +1,41 @@
+#OurJS
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ourjs
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    volumes:
+      - init:/init
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    environment:
+      - EXAMPLE_DOMAIN=ourjs.dujun.tk
+    ports:
+      - "10076:8051"
+    working_dir: /wwwroot/app
+    entrypoint: sh ourjs.sh
+    healthcheck:
+      test: curl -f http://localhost:8051
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: ourjs
+
+volumes:
+  wwwroot:
+  init:
