@@ -1,0 +1,60 @@
+#噗噗博客
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/pupu-blog
+    volumes:
+      - init:/init
+      - web:/wwwroot/web
+      - server:/wwwroot/server
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:16
+    volumes:
+      - server:/wwwroot/server
+    depends_on:
+      mysql:
+        condition: service_healthy
+    expose:
+      - "20517"
+    working_dir: /wwwroot/server
+    entrypoint: node ./src/app.js
+    healthcheck:
+      test: curl -f http://localhost:20517
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      mysql:
+        condition: service_healthy
+      nodejs:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - web:/wwwroot/web
+    ports:
+      - "10075:80"
+    tty: true
+    container_name: pupu-blog
+
+volumes:
+  init:
+  vhost:
+  web:
+  server:
