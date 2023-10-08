@@ -1,10 +1,10 @@
-#ThinkPHP5 博客
+#min-Blog
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/thinkphp5-blog
+    image: dujunio/min-blog
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
@@ -26,6 +26,9 @@ services:
         condition: service_healthy
     volumes:
       - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=min-blog.dujun.tk
     tty: true
 
   nginx:
@@ -39,9 +42,9 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - wwwroot:/wwwroot
     ports:
-      - "10077:80"
+      - "10078:80"
     tty: true
-    container_name: thinkphp5-blog
+    container_name: min-blog
 
 volumes:
   wwwroot:

@@ -1,4 +1,4 @@
-#ThinkPHP5 博客
+#min-Blog
 
 FROM busybox
 MAINTAINER dujun
