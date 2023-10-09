@@ -1,0 +1,42 @@
+#枫枫知道博客 5.0.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/fengfengblog
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    ports:
+      - "10080:8000"
+    healthcheck:
+      test: curl -f http://localhost:8000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+    container_name: fengfengblog
+
+volumes:
+  init:
+  wwwroot:

@@ -1,0 +1,30 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  python:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01020_python_3
+      dockerfile: Dockerfile
+    image: dujunio/python:3
+
+  fengfengblog:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/fengfengblog
