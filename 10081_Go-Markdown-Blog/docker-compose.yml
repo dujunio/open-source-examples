@@ -1,0 +1,42 @@
+#Go Markdown Blog 1.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/go-markdown-blog
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    depends_on:
+      - data
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=go-markdown-blog.dujun.local
+    ports:
+      - "10081:9091"
+    healthcheck:
+      test: curl -f http://localhost:9091
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: go-markdown-blog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
