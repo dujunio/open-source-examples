@@ -1,0 +1,55 @@
+#WDJA 博客 2.9
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/wdja-blog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=wdja-blog.dujun.local
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10084:80"
+    healthcheck:
+      test: netstat -ant | grep 0.0.0.0:80
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: wdja-blog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
