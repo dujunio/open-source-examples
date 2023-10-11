@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=wdja-blog.dujun.local
+      - EXAMPLE_DOMAIN=wdja-blog.dujun.tk
     tty: true
 
   nginx:
