@@ -1,4 +1,4 @@
-#FC2 博客
+#PluXml 5.8.9
 
 FROM busybox
 MAINTAINER dujun
