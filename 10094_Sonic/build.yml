@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  sqlite:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02040_sqlite_3
+      dockerfile: Dockerfile
+    image: dujunio/sqlite:3
+
+  sonic:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/sonic

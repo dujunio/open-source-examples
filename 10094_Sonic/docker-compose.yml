@@ -1,0 +1,34 @@
+#Sonic 1.1.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/sonic
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  sqlite:
+    image: dujunio/sqlite:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=sonic.dujun.tk
+    ports:
+      - "10094:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: sonic
+
+volumes:
+  wwwroot:
+  init:
