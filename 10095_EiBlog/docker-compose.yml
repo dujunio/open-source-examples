@@ -1,0 +1,31 @@
+#EiBlog 2.2.9
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/eiblog
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  sqlite:
+    image: dujunio/sqlite:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "10095:9000"
+    working_dir: /wwwroot/app
+    entrypoint: ./backend
+    healthcheck:
+      test: curl -f http://localhost:9000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: eiblog
+
+volumes:
+  wwwroot:
