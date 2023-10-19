@@ -1,0 +1,64 @@
+#izone
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/izone
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=izone.dujun.tk
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    expose:
+      - "8000"
+    healthcheck:
+      test: curl -f http://localhost:8000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      python:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10097:80"
+    tty: true
+    container_name: izone
+
+volumes:
+  init:
+  wwwroot:
+  vhost:

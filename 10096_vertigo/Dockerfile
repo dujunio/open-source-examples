@@ -1,4 +1,4 @@
-#vertigo 0.3
+#Vertigo 0.3
 
 FROM busybox
 MAINTAINER dujun

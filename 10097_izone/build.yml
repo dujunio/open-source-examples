@@ -1,0 +1,46 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  redis:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02020_redis
+      dockerfile: Dockerfile
+    image: dujunio/redis
+
+  python:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01020_python_3
+      dockerfile: Dockerfile
+    image: dujunio/python:3
+
+  nginx:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03000_nginx
+      dockerfile: Dockerfile
+    image: dujunio/nginx
+
+  izone:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/izone
