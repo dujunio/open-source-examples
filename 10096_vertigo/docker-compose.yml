@@ -1,0 +1,34 @@
+#vertigo 0.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/vertigo
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  sqlite:
+    image: dujunio/sqlite:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=vertigo.dujun.local
+    ports:
+      - "10096:3000"
+    healthcheck:
+      test: curl -f http://localhost:3000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: vertigo
+
+volumes:
+  wwwroot:
+  init:
