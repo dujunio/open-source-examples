@@ -1,0 +1,41 @@
+#BlogoText 3.7.6
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/blogotext
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=blogotext.dujun.local
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "10099:80"
+    tty: true
+    container_name: blogotext
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
