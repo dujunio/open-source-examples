@@ -9,8 +9,8 @@ services:
       - wwwroot:/wwwroot
     tty: true
 
-  sqlite:
-    image: dujunio/sqlite:3
+  debian:
+    image: dujunio/debian
     depends_on:
       - data
     volumes:
