@@ -1,0 +1,38 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  postgresql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02030_postgresql_13
+      dockerfile: Dockerfile
+    image: dujunio/postgresql:13
+
+  redis:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02020_redis
+      dockerfile: Dockerfile
+    image: dujunio/redis
+
+  nodejs:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01012_nodejs_20
+      dockerfile: Dockerfile
+    image: dujunio/nodejs:20
+
+  misskey:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/misskey
