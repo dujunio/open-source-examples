@@ -1,0 +1,35 @@
+#Go File Microblog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/go-file-microblog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    ports:
+      - "10208:80"
+    healthcheck:
+      test: curl -f http://localhost
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: go-file-microblog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
