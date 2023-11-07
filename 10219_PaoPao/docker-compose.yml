@@ -1,0 +1,43 @@
+#泡泡微社区 0.5.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/paopao
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=paopao.dujun.tk
+    ports:
+      - "10219:8008"
+    healthcheck:
+      test: curl -f http://localhost:8008
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    tty: true
+    container_name: paopao
+
+volumes:
+  wwwroot:
+  init:
