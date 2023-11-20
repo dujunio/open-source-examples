@@ -1,0 +1,37 @@
+#Nanoblog
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nanoblog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=nanoblog.dujun.tk
+    ports:
+      - "11109:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: nanoblog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

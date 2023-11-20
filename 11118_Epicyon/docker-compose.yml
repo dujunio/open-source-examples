@@ -1,0 +1,35 @@
+#Epicyon 1.4.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/epicyon
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  python:
+    image: dujunio/python:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=epicyon.dujun.tk
+    ports:
+      - "11118:7156"
+    healthcheck:
+      test: netstat -atn | grep 7156
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+    container_name: epicyon
+
+volumes:
+  wwwroot:
+  init:

@@ -1,0 +1,31 @@
+#memos 0.16.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/memos
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  debian:
+    image: dujunio/debian
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "11103:5230"
+    working_dir: /wwwroot/app
+    entrypoint: ./memos --mode=prod --port=5230 --data=/wwwroot/app/data
+    healthcheck:
+      test: curl -f http://localhost:5230
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: memos
+
+volumes:
+  wwwroot:

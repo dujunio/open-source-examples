@@ -1,0 +1,53 @@
+#Mini Microblog 2.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/mini-microblog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  sqlite:
+    image: dujunio/sqlite:3
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=mini-microblog.dujun.tk
+    tty: true
+
+  php:
+    image: dujunio/php:8.1
+    depends_on:
+      - data
+      - sqlite
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=mini-microblog.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "11106:80"
+    tty: true
+    container_name: mini-microblog
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
