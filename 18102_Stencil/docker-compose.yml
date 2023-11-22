@@ -1,0 +1,31 @@
+#Stencil 4.7.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/stencil
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "18102:3000"
+    working_dir: /wwwroot
+    entrypoint: serve -s www
+    healthcheck:
+      test: netstat -atn | grep 3000
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: stencil
+
+volumes:
+  wwwroot:

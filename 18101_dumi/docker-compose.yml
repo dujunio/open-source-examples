@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
     ports:
-      - "13241:80"
+      - "18101:80"
     tty: true
     container_name: dumi
 
