@@ -1,0 +1,27 @@
+#Omi 7.3.6
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/omi
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "18102:80"
+    tty: true
+    container_name: omi
+
+volumes:
+  wwwroot:
+  vhost:
