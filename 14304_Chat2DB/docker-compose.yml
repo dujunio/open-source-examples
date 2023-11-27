@@ -1,0 +1,43 @@
+#Chat2DB 3.0.14
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/chat2db
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  java:
+    image: dujunio/java:17
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "14304:10824"
+    working_dir: /wwwroot/app
+    entrypoint: java -Dspring.profiles.active=release -jar chat2db-server-start.jar
+    healthcheck:
+      test: netstat -ant | grep 10824
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+    container_name: chat2db
+
+volumes:
+  wwwroot:
+  init:

@@ -19,7 +19,7 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/01041_java_20
+      context: ../00000_BASE/01042_java_20
       dockerfile: Dockerfile
     image: dujunio/java:20
 
