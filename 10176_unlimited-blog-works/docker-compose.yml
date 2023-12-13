@@ -1,0 +1,27 @@
+#unlimited-blog-works
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/unlimited-blog-works
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10176:80"
+    tty: true
+    container_name: unlimited-blog-works
+
+volumes:
+  wwwroot:
+  vhost:
