@@ -1,0 +1,27 @@
+#Wyam2 3.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/wyam2
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10181:80"
+    tty: true
+    container_name: wyam2
+
+volumes:
+  wwwroot:
+  vhost:

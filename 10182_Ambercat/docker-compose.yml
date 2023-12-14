@@ -1,0 +1,27 @@
+#Ambercat 0.8.3
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ambercat
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10182:80"
+    tty: true
+    container_name: ambercat
+
+volumes:
+  wwwroot:
+  vhost:
