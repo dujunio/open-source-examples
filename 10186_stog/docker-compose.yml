@@ -1,0 +1,27 @@
+#stog 0.2.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/stog
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10186:80"
+    tty: true
+    container_name: stog
+
+volumes:
+  wwwroot:
+  vhost:
