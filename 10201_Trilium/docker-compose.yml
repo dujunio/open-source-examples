@@ -1,0 +1,31 @@
+#Trilium 0.62.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/trilium
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:18
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    working_dir: /wwwroot/app
+    entrypoint: /bin/bash -c "TRILIUM_SAFE_MODE=1 TRILIUM_DATA_DIR=./data node src/www"
+    ports:
+      - "10201:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: trilium
+
+volumes:
+  wwwroot:

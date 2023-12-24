@@ -1,0 +1,27 @@
+#Utterson
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/utterson
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10195:80"
+    tty: true
+    container_name: utterson
+
+volumes:
+  wwwroot:
+  vhost:

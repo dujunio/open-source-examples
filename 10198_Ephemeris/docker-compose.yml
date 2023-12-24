@@ -1,0 +1,27 @@
+#Ephemeris 0.6.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/ephemeris
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10198:80"
+    tty: true
+    container_name: ephemeris
+
+volumes:
+  wwwroot:
+  vhost:
