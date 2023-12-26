@@ -1,0 +1,27 @@
+#Logseq 0.9.13
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/logseq
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "10202:80"
+    tty: true
+    container_name: logseq
+
+volumes:
+  wwwroot:
+  vhost:

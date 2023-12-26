@@ -1,0 +1,17 @@
+#思源笔记 2.11.3
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/siyuan
+    ports:
+      - "10203:6806"
+    working_dir: /opt/siyuan
+    entrypoint: ./kernel --workspace=workspace --accessAuthCode=123456 --lang zh_CN
+    tty: true
+    container_name: siyuan
+
+volumes:
+  wwwroot:
+  vhost:
