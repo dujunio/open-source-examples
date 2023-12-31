@@ -15,7 +15,7 @@ services:
     tty: true
 
   python:
-    image: dujunio/python:3
+    image: dujunio/python:3.9
     depends_on:
       - data
     volumes:

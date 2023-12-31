@@ -1,0 +1,33 @@
+#flatnotes 3.6.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/flatnotes
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  python:
+    image: dujunio/python:3.9
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    ports:
+      - "10206:8080"
+    healthcheck:
+      test: netstat -atn | grep 8080
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    tty: true
+    container_name: flatnotes
+
+volumes:
+  wwwroot:
+  init:

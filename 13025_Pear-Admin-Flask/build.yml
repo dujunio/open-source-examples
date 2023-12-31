@@ -27,9 +27,9 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/01020_python_3
+      context: ../00000_BASE/01020_python_3.9
       dockerfile: Dockerfile
-    image: dujunio/python:3
+    image: dujunio/python:3.9
 
   pear-admin-flask:
     build:
