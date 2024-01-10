@@ -35,6 +35,8 @@ services:
     volumes:
       - wwwroot:/wwwroot
       - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=crmeb.dujun.tk
     expose:
       - "40001"
       - "40002"
