@@ -1,0 +1,38 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_BASE/00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  php:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/01001_php_7.4
+      dockerfile: Dockerfile
+    image: dujunio/php:7.4
+
+  mysql:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/02000_mariadb_10.5
+      dockerfile: Dockerfile
+    image: dujunio/mariadb:10.5
+
+  nginx:
+    depends_on:
+      - debian
+    build:
+      context: ../00000_BASE/03000_nginx
+      dockerfile: Dockerfile
+    image: dujunio/nginx
+
+  niushop:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/niushop

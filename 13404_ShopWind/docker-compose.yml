@@ -1,0 +1,50 @@
+#ShopWind 4.7
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/shopwind
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=shopwind.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "13404:80"
+    tty: true
+    container_name: shopwind
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
