@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  php:
+    image: dujunio/php:7.4
+    container_name: php
+    tty: true

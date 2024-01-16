@@ -1,0 +1,47 @@
+#DSShop 3.1.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dsshop
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:7.2
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "13407:80"
+    tty: true
+    container_name: dsshop
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

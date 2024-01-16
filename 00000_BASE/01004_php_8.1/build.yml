@@ -1,0 +1,16 @@
+version: '2.4'
+
+services:
+  debian:
+    build:
+      context: ../00000_debian
+      dockerfile: Dockerfile
+    image: dujunio/debian
+
+  php:
+    depends_on:
+      - debian
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/php:8.1
