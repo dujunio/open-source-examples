@@ -3,6 +3,6 @@
 FROM busybox
 MAINTAINER dujun
 
-ADD data.txz /
+ADD data /
 
 RUN chown -fR www-data:www-data /wwwroot/app
