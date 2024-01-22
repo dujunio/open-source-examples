@@ -1,6 +1,6 @@
-#PHP 7.4，基于 dujunio/debian
+#PHP 7.4
 
-FROM dujunio/debian
+FROM dujunio/debian:11.8
 MAINTAINER dujun
 
 ADD data.txz /
