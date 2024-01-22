@@ -1,6 +1,6 @@
-#aaPanel 6.8.27，基于 dujunio/debian
+#aaPanel 6.8.27
 
-FROM dujunio/debian
+FROM dujunio/debian:11.8
 MAINTAINER dujun
 
 ADD data.txz /

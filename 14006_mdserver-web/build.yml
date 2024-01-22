@@ -3,9 +3,9 @@ version: '2.4'
 services:
   debian:
     build:
-      context: ../00000_BASE/00000_debian
+      context: ../00000_BASE/00001_debian_11.8
       dockerfile: Dockerfile
-    image: dujunio/debian
+    image: dujunio/debian:11.8
 
   mdserver-web:
     depends_on:

@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  debian:
+    image: dujunio/debian:11.8
+    container_name: debian
+    privileged: true
+    tty: true

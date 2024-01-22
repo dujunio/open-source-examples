@@ -1,6 +1,6 @@
-#Webmin 2.010，基于 dujunio/debian
+#Webmin 2.010
 
-FROM dujunio/debian
+FROM dujunio/debian:11.8
 MAINTAINER dujun
 
 ADD data.txz /

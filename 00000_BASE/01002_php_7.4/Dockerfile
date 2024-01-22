@@ -13,7 +13,10 @@ RUN apt-get update -y &&\
     sed -i "s/post_max_size = 8M/post_max_size = 1024M/g" /etc/php/7.4/fpm/php.ini &&\
     sed -i "s/post_max_size = 8M/post_max_size = 1024M/g" /etc/php/7.4/cli/php.ini &&\
     sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/7.4/fpm/php.ini &&\
-    sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/7.4/cli/php.ini
+    sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/7.4/cli/php.ini &&\
+    curl -sS https://getcomposer.org/installer | php &&\
+    mv composer.phar /usr/local/bin/composer &&\
+    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 ENTRYPOINT /entrypoint
 
