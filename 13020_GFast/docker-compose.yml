@@ -25,7 +25,7 @@ services:
     tty: true
 
   redis:
-    image: dujunio/redis
+    image: dujunio/redis:7.0
     tty: true
 
   go:
@@ -47,7 +47,7 @@ services:
     tty: true
 
   nginx:
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
     depends_on:
       go:
         condition: service_healthy

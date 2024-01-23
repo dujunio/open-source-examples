@@ -5,5 +5,5 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/debian
+    image: dujunio/debian:11.7
     privileged: true

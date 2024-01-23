@@ -30,7 +30,7 @@ services:
     tty: true
 
   nginx:
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
     depends_on:
       mysql:
         condition: service_healthy

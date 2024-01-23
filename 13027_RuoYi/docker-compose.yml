@@ -42,7 +42,7 @@ services:
     tty: true
 
   nginx:
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
     depends_on:
       java:
         condition: service_healthy

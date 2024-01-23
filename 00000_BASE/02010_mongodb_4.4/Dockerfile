@@ -1,6 +1,6 @@
-#MongoDB 4.4，基于 dujunio/debian
+#MongoDB 4.4
 
-FROM dujunio/debian
+FROM dujunio/debian:11.7
 MAINTAINER dujun
 
 ADD data.txz /

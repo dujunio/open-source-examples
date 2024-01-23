@@ -3,9 +3,9 @@ version: '2.4'
 services:
   debian:
     build:
-      context: ../00000_debian
+      context: ../00001_debian_12.4
       dockerfile: Dockerfile
-    image: dujunio/debian
+    image: dujunio/debian:12.4
 
   nodejs:
     depends_on:

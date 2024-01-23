@@ -1,6 +1,6 @@
 #PostgreSQL 13，基于 dujunio/debian
 
-FROM dujunio/debian
+FROM dujunio/debian:11.7
 MAINTAINER dujun
 
 ADD data.txz /

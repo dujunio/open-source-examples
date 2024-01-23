@@ -11,7 +11,7 @@ services:
     tty: true
 
   docker:
-    image: dujunio/docker
+    image: dujunio/docker:20
     depends_on:
       - data
     volumes:

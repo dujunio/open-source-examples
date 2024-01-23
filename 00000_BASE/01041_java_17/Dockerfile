@@ -1,6 +1,6 @@
-#OpenJDK 17，基于 dujunio/debian
+#OpenJDK 17
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data1.txz /

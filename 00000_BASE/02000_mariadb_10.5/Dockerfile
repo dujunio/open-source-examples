@@ -1,6 +1,6 @@
-#MariaDB 10.5，基于 dujunio/debian
+#MariaDB 10.5
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data.txz /

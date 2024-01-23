@@ -1,6 +1,6 @@
-#Node.js 16，基于 dujunio/debian
+#Node.js 16
 
-FROM dujunio/debian
+FROM dujunio/debian:11.7
 MAINTAINER dujun
 
 ADD data.txz /

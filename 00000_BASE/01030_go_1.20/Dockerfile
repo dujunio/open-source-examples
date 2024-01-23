@@ -1,6 +1,6 @@
-#Go 1.20.4，基于 dujunio/debian
+#Go 1.20.4
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data.txz /

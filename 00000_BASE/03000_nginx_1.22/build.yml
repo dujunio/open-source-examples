@@ -3,14 +3,14 @@ version: '2.4'
 services:
   debian:
     build:
-      context: ../00000_debian
+      context: ../00001_debian_12.4
       dockerfile: Dockerfile
-    image: dujunio/debian
+    image: dujunio/debian:12.4
 
-  redis:
+  nginx:
     depends_on:
       - debian
     build:
       context: ./
       dockerfile: Dockerfile
-    image: dujunio/redis
+    image: dujunio/nginx:1.22

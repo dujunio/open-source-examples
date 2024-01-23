@@ -20,7 +20,7 @@ services:
     privileged: true
 
   nginx:
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
     depends_on:
       app:
         condition: service_healthy

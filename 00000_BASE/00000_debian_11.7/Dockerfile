@@ -1,6 +1,6 @@
-#Debian，基于官方镜像 debian:11.8
+#Debian，基于官方镜像 debian:11.7
 
-FROM debian:11.8
+FROM debian:11.7
 MAINTAINER dujun
 
 ENV DEBIAN_FRONTEND=noninteractive \

@@ -1,12 +1,12 @@
-#Docker，基于官方 dujunio/debian
+#Docker 20
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data.txz /
 
 RUN apt-get update -y &&\
-    apt-get install docker.io docker-compose -y
+    apt-get install docker.io=20.* docker-compose -y
 
 ENTRYPOINT /entrypoint
 

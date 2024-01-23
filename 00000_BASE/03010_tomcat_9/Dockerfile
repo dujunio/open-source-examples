@@ -1,6 +1,6 @@
 #Tomcat 9.0.79 / JRE 11，基于 dujunio/debian
 
-FROM dujunio/debian
+FROM dujunio/debian:11.7
 MAINTAINER dujun
 
 ADD data.txz /

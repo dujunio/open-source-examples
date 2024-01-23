@@ -3,17 +3,17 @@ version: '2.4'
 services:
   debian:
     build:
-      context: ../00000_BASE/00000_debian
+      context: ../00000_BASE/00000_debian_11.7
       dockerfile: Dockerfile
-    image: dujunio/debian
+    image: dujunio/debian:11.7
 
   nginx:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/03000_nginx
+      context: ../00000_BASE/03000_nginx_1.22
       dockerfile: Dockerfile
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
 
   eleventy-website:
     build:

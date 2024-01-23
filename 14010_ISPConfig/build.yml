@@ -5,7 +5,7 @@ services:
     build:
       context: ../00000_BASE/00001_debian_11.8
       dockerfile: Dockerfile
-    image: dujunio/debian:11.8
+    image: dujunio/debian:11.7
 
   ispconfig:
     depends_on:

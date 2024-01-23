@@ -1,6 +1,6 @@
 #思源笔记 2.11.3
 
-FROM dujunio/debian
+FROM dujunio/debian:11.7
 MAINTAINER dujun
 
 ADD data.txz /

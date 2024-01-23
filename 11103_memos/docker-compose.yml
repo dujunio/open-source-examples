@@ -10,7 +10,7 @@ services:
     tty: true
 
   debian:
-    image: dujunio/debian
+    image: dujunio/debian:11.7
     depends_on:
       - data
     volumes:

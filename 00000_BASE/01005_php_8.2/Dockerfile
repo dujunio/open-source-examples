@@ -1,6 +1,6 @@
-#PHP 8.2，基于 dujunio/debian
+#PHP 8.2
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data.txz /
@@ -13,7 +13,10 @@ RUN apt-get update -y &&\
     sed -i "s/post_max_size = 8M/post_max_size = 1024M/g" /etc/php/8.2/fpm/php.ini &&\
     sed -i "s/post_max_size = 8M/post_max_size = 1024M/g" /etc/php/8.2/cli/php.ini &&\
     sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/8.2/fpm/php.ini &&\
-    sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/8.2/cli/php.ini
+    sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/8.2/cli/php.ini &&\
+    curl -sS https://getcomposer.org/installer | php &&\
+    mv composer.phar /usr/local/bin/composer &&\
+    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 ENTRYPOINT /entrypoint
 

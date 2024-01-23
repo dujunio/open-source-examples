@@ -1,6 +1,6 @@
-#JDK 1.8，基于 dujunio/debian
+#JDK 1.8
 
-FROM dujunio/debian
+FROM dujunio/debian:12.4
 MAINTAINER dujun
 
 ADD data.txz /

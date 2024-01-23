@@ -41,7 +41,7 @@ services:
     tty: true
 
   nginx:
-    image: dujunio/nginx
+    image: dujunio/nginx:1.22
     depends_on:
       go:
         condition: service_healthy

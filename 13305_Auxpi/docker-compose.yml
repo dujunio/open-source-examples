@@ -21,7 +21,7 @@ services:
     tty: true
 
   redis:
-    image: dujunio/redis
+    image: dujunio/redis:7.0
     tty: true
 
   go:
