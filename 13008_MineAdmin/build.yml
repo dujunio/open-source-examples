@@ -27,9 +27,9 @@ services:
     depends_on:
       - debian
     build:
-      context: ../00000_BASE/02020_redis_7.0
+      context: ../00000_BASE/02020_redis_6.0
       dockerfile: Dockerfile
-    image: dujunio/redis:7.0
+    image: dujunio/redis:6.0
 
   nodejs:
     depends_on:

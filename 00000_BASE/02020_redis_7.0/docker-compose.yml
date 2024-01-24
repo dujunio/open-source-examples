@@ -1,7 +1,0 @@
-version: '2.4'
-
-services:
-  redis:
-    image: dujunio/redis:7.0
-    container_name: redis
-    tty: true
