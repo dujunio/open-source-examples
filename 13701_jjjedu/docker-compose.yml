@@ -1,0 +1,50 @@
+#三勾知识付费
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/jjjedu
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:8.2
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=jjjedu.dujun.tk
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "13701:80"
+    tty: true
+    container_name: jjjedu
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
