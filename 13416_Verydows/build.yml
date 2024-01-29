@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  verydows:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/verydows
