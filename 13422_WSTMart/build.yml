@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  wstmart:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/wstmart
