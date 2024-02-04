@@ -1,0 +1,53 @@
+#iWebShop 5.14
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/iwebshop
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    tty: true
+
+  redis:
+    image: dujunio/redis:6.0
+    tty: true
+
+  php:
+    image: dujunio/php:7.2
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "13423:80"
+    tty: true
+    container_name: iwebshop
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
