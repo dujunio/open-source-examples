@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=typecho.dujun.tk
+      - EXAMPLE_DOMAIN=typecho.dujun.eu.org
     tty: true
 
   php:

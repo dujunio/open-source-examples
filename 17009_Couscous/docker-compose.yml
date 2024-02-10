@@ -20,7 +20,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=couscous.dujun.tk
+      - EXAMPLE_DOMAIN=couscous.dujun.eu.org
     ports:
       - "17009:80"
     tty: true

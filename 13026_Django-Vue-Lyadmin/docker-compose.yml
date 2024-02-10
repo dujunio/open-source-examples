@@ -59,7 +59,7 @@ services:
     ports:
       - "13026:80"
     environment:
-      - EXAMPLE_DOMAIN=django-vue-lyadmin.dujun.tk
+      - EXAMPLE_DOMAIN=django-vue-lyadmin.dujun.eu.org
     tty: true
     container_name: django-vue-lyadmin
 

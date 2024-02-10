@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=arevb.dujun.tk
+      - EXAMPLE_DOMAIN=arevb.dujun.eu.org
     tty: true
 
   php:

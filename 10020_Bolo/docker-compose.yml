@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=bolo.dujun.tk
+      - EXAMPLE_DOMAIN=bolo.dujun.eu.org
     tty: true
 
   java:

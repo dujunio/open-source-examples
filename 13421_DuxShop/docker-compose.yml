@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=duxshop.dujun.tk
+      - EXAMPLE_DOMAIN=duxshop.dujun.eu.org
     tty: true
 
   php:

@@ -8,7 +8,7 @@ services:
     ports:
       - "14014:80"
     environment:
-      - EXAMPLE_DOMAIN=virtualmin.dujun.tk
+      - EXAMPLE_DOMAIN=virtualmin.dujun.eu.org
     entrypoint: /entrypoint
     healthcheck:
       test: curl -f http://localhost

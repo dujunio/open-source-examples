@@ -20,7 +20,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=gridea.dujun.tk
+      - EXAMPLE_DOMAIN=gridea.dujun.eu.org
     ports:
       - "10119:80"
     tty: true

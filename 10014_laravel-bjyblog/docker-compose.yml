@@ -31,7 +31,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=laravel-bjyblog.dujun.tk
+      - EXAMPLE_DOMAIN=laravel-bjyblog.dujun.eu.org
     tty: true
 
   nginx:

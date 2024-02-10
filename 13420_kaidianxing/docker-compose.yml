@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=kaidianxing.dujun.tk
+      - EXAMPLE_DOMAIN=kaidianxing.dujun.eu.org
     tty: true
 
   redis:
@@ -36,7 +36,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=kaidianxing.dujun.tk
+      - EXAMPLE_DOMAIN=kaidianxing.dujun.eu.org
     tty: true
 
   nginx:

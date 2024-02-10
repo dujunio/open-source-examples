@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=epicyon.dujun.tk
+      - EXAMPLE_DOMAIN=epicyon.dujun.eu.org
     ports:
       - "11118:7156"
     healthcheck:

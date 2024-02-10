@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=autublog.dujun.tk
+      - EXAMPLE_DOMAIN=autublog.dujun.eu.org
     ports:
       - "10039:8080"
     healthcheck:

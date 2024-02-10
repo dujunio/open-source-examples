@@ -18,7 +18,7 @@ services:
       - var:/var
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=ghost.dujun.tk
+      - EXAMPLE_DOMAIN=ghost.dujun.eu.org
     ports:
       - "10008:2368"
     healthcheck:

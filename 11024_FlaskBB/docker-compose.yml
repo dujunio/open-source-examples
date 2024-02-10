@@ -24,7 +24,7 @@ services:
     ports:
       - "11024:8000"
     environment:
-      - EXAMPLE_DOMAIN=flaskbb.dujun.tk
+      - EXAMPLE_DOMAIN=flaskbb.dujun.eu.org
     healthcheck:
       test: netstat -atn | grep 8000
       interval: 3s

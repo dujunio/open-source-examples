@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=vicco.dujun.tk
+      - EXAMPLE_DOMAIN=vicco.dujun.eu.org
     tty: true
 
   nginx:

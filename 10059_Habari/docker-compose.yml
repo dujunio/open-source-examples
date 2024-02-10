@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=habari.dujun.tk
+      - EXAMPLE_DOMAIN=habari.dujun.eu.org
     tty: true
 
   php:
@@ -30,7 +30,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=habari.dujun.tk
+      - EXAMPLE_DOMAIN=habari.dujun.eu.org
     tty: true
 
   nginx:

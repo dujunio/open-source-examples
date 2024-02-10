@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=sharetronix.dujun.tk
+      - EXAMPLE_DOMAIN=sharetronix.dujun.eu.org
     tty: true
 
   nginx:

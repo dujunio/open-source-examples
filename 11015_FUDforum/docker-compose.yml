@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=fudforum.dujun.tk
+      - EXAMPLE_DOMAIN=fudforum.dujun.eu.org
     tty: true
 
   nginx:

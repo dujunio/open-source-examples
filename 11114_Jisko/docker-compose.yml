@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=jisko.dujun.tk
+      - EXAMPLE_DOMAIN=jisko.dujun.eu.org
     tty: true
 
   nginx:

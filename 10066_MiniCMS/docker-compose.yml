@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=minicms.dujun.tk
+      - EXAMPLE_DOMAIN=minicms.dujun.eu.org
     tty: true
 
   nginx:

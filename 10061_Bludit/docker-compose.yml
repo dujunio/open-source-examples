@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=bludit.dujun.tk
+      - EXAMPLE_DOMAIN=bludit.dujun.eu.org
     tty: true
 
   nginx:

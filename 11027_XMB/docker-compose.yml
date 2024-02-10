@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=xmb.dujun.tk
+      - EXAMPLE_DOMAIN=xmb.dujun.eu.org
     tty: true
 
   php:
@@ -29,7 +29,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=xmb.dujun.tk
+      - EXAMPLE_DOMAIN=xmb.dujun.eu.org
     tty: true
 
   nginx:

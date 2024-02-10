@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=crmchat.dujun.tk
+      - EXAMPLE_DOMAIN=crmchat.dujun.eu.org
     tty: true
 
   redis:

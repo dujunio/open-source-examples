@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=nibbleblog.dujun.tk
+      - EXAMPLE_DOMAIN=nibbleblog.dujun.eu.org
     tty: true
 
   nginx:

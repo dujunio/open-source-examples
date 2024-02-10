@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=opencart.dujun.tk
+      - EXAMPLE_DOMAIN=opencart.dujun.eu.org
     tty: true
 
   nginx:
