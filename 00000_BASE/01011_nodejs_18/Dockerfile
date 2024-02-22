@@ -9,8 +9,8 @@ RUN apt-get update -y &&\
     curl -sL https://deb.nodesource.com/setup_18.x | bash &&\
     apt-get install nodejs -y &&\
     npm config set registry https://registry.npmmirror.com/ &&\
-    npm install -g npm &&\
-    npm install serve pm2 -g
+    npm i -g npm &&\
+    npm i -g yarn tyarn pnpm cnpm serve pm2
 
 ENTRYPOINT /entrypoint
 

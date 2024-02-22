@@ -14,6 +14,8 @@ RUN apt-get update -y &&\
     sed -i "s/post_max_size = 8M/post_max_size = 1024M/g" /etc/php/8.1/cli/php.ini &&\
     sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/8.1/fpm/php.ini &&\
     sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 1024M/g" /etc/php/8.1/cli/php.ini &&\
+    sed -i "s/;date.timezone =/date.timezone = Asia\/Shanghai/g" /etc/php/8.1/fpm/php.ini &&\
+    sed -i "s/;date.timezone =/date.timezone = Asia\/Shanghai/g" /etc/php/8.1/cli/php.ini &&\
     curl -sS https://getcomposer.org/installer | php &&\
     mv composer.phar /usr/local/bin/composer &&\
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
