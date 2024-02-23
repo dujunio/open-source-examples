@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  bagisto:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/bagisto

@@ -8,6 +8,7 @@ ADD data.txz /
 RUN apt-get update -y &&\
     apt-get install sudo postgresql-13 postgresql-client-13 -y &&\
     echo "listen_addresses = '*'" >> /etc/postgresql/13/main/postgresql.conf &&\
+    sed -i "s/ssl = on/ssl = off/g" /etc/postgresql/13/main/postgresql.conf &&\
     echo "host    all         all         0.0.0.0/0      md5" >> /etc/postgresql/13/main/pg_hba.conf &&\
     /etc/init.d/postgresql start &&\
     sudo -u postgres createuser -s admin &&\
