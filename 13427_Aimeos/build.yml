@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  aimeos:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/aimeos
