@@ -1,0 +1,50 @@
+#thirty bees 1.5.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/thirty-bees
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=thirty-bees.dujun.eu.org
+    tty: true
+
+  php:
+    image: dujunio/php:7.4
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      mysql:
+        condition: service_healthy
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "13428:80"
+    tty: true
+    container_name: thirty-bees
+
+volumes:
+  wwwroot:
+  vhost:
+  init:

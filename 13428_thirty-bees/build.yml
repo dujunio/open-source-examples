@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  thirty-bees:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/thirty-bees
