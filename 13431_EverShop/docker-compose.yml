@@ -1,0 +1,49 @@
+#EverShop
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/evershop
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  postgresql:
+    image: dujunio/postgresql:13
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: netstat -atn | grep 5432
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:20
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "13431:3000"
+    working_dir: /wwwroot/app
+    entrypoint: npm run start
+    healthcheck:
+      test: curl -f http://localhost:3000
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    tty: true
+    container_name: evershop
+
+volumes:
+  init:
+  wwwroot:
