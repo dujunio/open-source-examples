@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=misskey.dujun.eu.org
+      - EXAMPLE_DOMAIN=misskey.dujun.bf
     healthcheck:
       test: netstat -atn | grep 5432
       interval: 5s
@@ -38,7 +38,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=misskey.dujun.eu.org
+      - EXAMPLE_DOMAIN=misskey.dujun.bf
     ports:
       - "11105:3000"
     healthcheck:

@@ -20,7 +20,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=nanoblog.dujun.eu.org
+      - EXAMPLE_DOMAIN=nanoblog.dujun.bf
     ports:
       - "11109:8080"
     healthcheck:

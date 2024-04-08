@@ -22,7 +22,7 @@ services:
     ports:
       - "10111:80"
     environment:
-      - EXAMPLE_DOMAIN=astro.dujun.eu.org
+      - EXAMPLE_DOMAIN=astro.dujun.bf
     tty: true
     container_name: astro
 

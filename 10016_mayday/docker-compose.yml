@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=mayday.dujun.eu.org
+      - EXAMPLE_DOMAIN=mayday.dujun.bf
     tty: true
 
   java:

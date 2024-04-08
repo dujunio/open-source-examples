@@ -22,7 +22,7 @@ services:
       - "8787"
       - "8000"
     environment:
-      - EXAMPLE_DOMAIN=browserquest.dujun.eu.org
+      - EXAMPLE_DOMAIN=browserquest.dujun.bf
     healthcheck:
       test: netstat -atn | grep 8787
       interval: 1s

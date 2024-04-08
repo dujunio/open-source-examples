@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=likeadmin.dujun.eu.org
+      - EXAMPLE_DOMAIN=likeadmin.dujun.bf
     tty: true
 
   php:

@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=minibb.dujun.eu.org
+      - EXAMPLE_DOMAIN=minibb.dujun.bf
     tty: true
 
   nginx:

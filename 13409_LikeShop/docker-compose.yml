@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=likeshop.dujun.eu.org
+      - EXAMPLE_DOMAIN=likeshop.dujun.bf
     tty: true
 
   nginx:

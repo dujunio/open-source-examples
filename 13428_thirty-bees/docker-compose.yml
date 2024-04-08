@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=thirty-bees.dujun.eu.org
+      - EXAMPLE_DOMAIN=thirty-bees.dujun.bf
     tty: true
 
   php:

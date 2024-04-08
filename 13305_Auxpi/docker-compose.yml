@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=auxpi.dujun.eu.org
+      - EXAMPLE_DOMAIN=auxpi.dujun.bf
     tty: true
 
   redis:
@@ -37,7 +37,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=auxpi.dujun.eu.org
+      - EXAMPLE_DOMAIN=auxpi.dujun.bf
     healthcheck:
       test: netstat -atn | grep 2333
       interval: 1s

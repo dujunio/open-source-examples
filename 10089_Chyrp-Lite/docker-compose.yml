@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=chyrp-lite.dujun.eu.org
+      - EXAMPLE_DOMAIN=chyrp-lite.dujun.bf
     tty: true
 
   nginx:

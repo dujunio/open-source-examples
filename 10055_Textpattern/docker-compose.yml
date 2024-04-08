@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=textpattern.dujun.eu.org
+      - EXAMPLE_DOMAIN=textpattern.dujun.bf
     tty: true
 
   php:

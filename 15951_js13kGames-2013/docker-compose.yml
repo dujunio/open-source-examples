@@ -1,14 +1,13 @@
-#Nikola 静态网站
+#js13kGames 2013 选辑
 
 version: '2.4'
 
 services:
   data:
-    image: dujunio/nikola-website
+    image: dujunio/js13kgames-2013
     volumes:
       - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
     tty: true
 
   nginx:
@@ -16,17 +15,13 @@ services:
     depends_on:
       - data
     volumes:
-      - wwwroot:/wwwroot
       - vhost:/etc/nginx/sites-enabled
-      - init:/init
-    environment:
-      - EXAMPLE_DOMAIN=nikola-website.dujun.bf
+      - wwwroot:/wwwroot
     ports:
-      - "13222:80"
+      - "15951:80"
     tty: true
-    container_name: nikola-website
+    container_name: js13kgames-2013
 
 volumes:
   wwwroot:
   vhost:
-  init:

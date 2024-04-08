@@ -20,7 +20,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=zola.dujun.eu.org
+      - EXAMPLE_DOMAIN=zola.dujun.bf
     ports:
       - "10113:80"
     tty: true

@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=chyrp.dujun.eu.org
+      - EXAMPLE_DOMAIN=chyrp.dujun.bf
     tty: true
 
   php:
@@ -30,7 +30,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=chyrp.dujun.eu.org
+      - EXAMPLE_DOMAIN=chyrp.dujun.bf
     tty: true
 
   nginx:

@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=blogotext.dujun.eu.org
+      - EXAMPLE_DOMAIN=blogotext.dujun.bf
     tty: true
 
   nginx:

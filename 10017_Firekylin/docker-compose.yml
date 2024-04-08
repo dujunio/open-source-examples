@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=firekylin.dujun.eu.org
+      - EXAMPLE_DOMAIN=firekylin.dujun.bf
     tty: true
 
   nodejs:

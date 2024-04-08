@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=imarkchina.dujun.eu.org
+      - EXAMPLE_DOMAIN=imarkchina.dujun.bf
     tty: true
 
   nginx:

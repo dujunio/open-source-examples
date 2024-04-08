@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=verydows.dujun.eu.org
+      - EXAMPLE_DOMAIN=verydows.dujun.bf
     tty: true
 
   nginx:
