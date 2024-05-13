@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  js13kgames-2016:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/js13kgames-2016
