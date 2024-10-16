@@ -1,4 +1,4 @@
-#青龙 v2.17.11
+#青龙 2.17.11
 
 FROM whyour/qinglong:2.17.11
 MAINTAINER dujun
