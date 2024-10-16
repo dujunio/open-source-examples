@@ -1,0 +1,11 @@
+#青龙 v2.17.11
+
+version: '2.4'
+
+services:
+  app:
+    image: dujunio/qinglong
+    ports:
+      - "14400:5700"
+    restart: unless-stopped
+    container_name: qinglong
