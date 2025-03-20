@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=colibrism.dujun.bf
+      - EXAMPLE_DOMAIN=colibrism.dujun.ggff.net
     tty: true
 
   nginx:

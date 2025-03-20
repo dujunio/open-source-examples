@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=mini-microblog.dujun.bf
+      - EXAMPLE_DOMAIN=mini-microblog.dujun.ggff.net
     tty: true
 
   php:
@@ -31,7 +31,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=mini-microblog.dujun.bf
+      - EXAMPLE_DOMAIN=mini-microblog.dujun.ggff.net
     tty: true
 
   nginx:

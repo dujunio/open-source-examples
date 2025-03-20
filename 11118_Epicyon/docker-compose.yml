@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=epicyon.dujun.bf
+      - EXAMPLE_DOMAIN=epicyon.dujun.ggff.net
     ports:
       - "11118:7156"
     healthcheck:

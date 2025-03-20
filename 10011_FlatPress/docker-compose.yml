@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=flatpress.dujun.bf
+      - EXAMPLE_DOMAIN=flatpress.dujun.ggff.net
     tty: true
 
   nginx:

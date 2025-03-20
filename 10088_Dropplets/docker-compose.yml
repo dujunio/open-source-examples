@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=dropplets.dujun.bf
+      - EXAMPLE_DOMAIN=dropplets.dujun.ggff.net
     tty: true
 
   nginx:

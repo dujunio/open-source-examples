@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=utforum.dujun.bf
+      - EXAMPLE_DOMAIN=utforum.dujun.ggff.net
     tty: true
 
   nginx:

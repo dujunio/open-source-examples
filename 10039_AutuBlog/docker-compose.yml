@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=autublog.dujun.bf
+      - EXAMPLE_DOMAIN=autublog.dujun.ggff.net
     ports:
       - "10039:8080"
     healthcheck:

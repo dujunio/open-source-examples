@@ -52,7 +52,7 @@ services:
     ports:
       - "13022:80"
     environment:
-      - EXAMPLE_DOMAIN=iris-admin.dujun.bf
+      - EXAMPLE_DOMAIN=iris-admin.dujun.ggff.net
     tty: true
     container_name: iris-admin
 

@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=xenforo.dujun.bf
+      - EXAMPLE_DOMAIN=xenforo.dujun.ggff.net
     healthcheck:
       test: mysql -e 'select * from xenforo.xf_widget_position limit 1'
       interval: 5s
@@ -46,7 +46,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=xenforo.dujun.bf
+      - EXAMPLE_DOMAIN=xenforo.dujun.ggff.net
     ports:
       - "11018:80"
     tty: true

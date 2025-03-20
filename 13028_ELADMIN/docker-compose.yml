@@ -58,7 +58,7 @@ services:
       - web:/wwwroot/web
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=eladmin.dujun.bf
+      - EXAMPLE_DOMAIN=eladmin.dujun.ggff.net
     ports:
       - "13028:80"
     tty: true

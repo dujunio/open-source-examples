@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=imgurl.dujun.bf
+      - EXAMPLE_DOMAIN=imgurl.dujun.ggff.net
     tty: true
 
   php:

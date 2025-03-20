@@ -19,7 +19,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=easyimages.dujun.bf
+      - EXAMPLE_DOMAIN=easyimages.dujun.ggff.net
     tty: true
 
   nginx:

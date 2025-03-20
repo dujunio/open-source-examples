@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=chevereto.dujun.bf
+      - EXAMPLE_DOMAIN=chevereto.dujun.ggff.net
     tty: true
 
   nginx:

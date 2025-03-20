@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=vertigo.dujun.bf
+      - EXAMPLE_DOMAIN=vertigo.dujun.ggff.net
     ports:
       - "10096:3000"
     healthcheck:

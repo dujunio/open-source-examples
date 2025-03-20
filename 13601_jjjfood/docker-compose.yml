@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=jjjfood.dujun.bf
+      - EXAMPLE_DOMAIN=jjjfood.dujun.ggff.net
     tty: true
 
   nginx:

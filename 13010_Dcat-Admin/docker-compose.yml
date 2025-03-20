@@ -34,7 +34,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=dcat-admin.dujun.bf
+      - EXAMPLE_DOMAIN=dcat-admin.dujun.ggff.net
     tty: true
 
   nginx:

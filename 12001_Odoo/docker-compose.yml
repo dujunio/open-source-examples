@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=odoo.dujun.bf
+      - EXAMPLE_DOMAIN=odoo.dujun.ggff.net
     tty: true
 
   python:

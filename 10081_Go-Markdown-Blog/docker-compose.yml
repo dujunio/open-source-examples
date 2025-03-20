@@ -25,7 +25,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=go-markdown-blog.dujun.bf
+      - EXAMPLE_DOMAIN=go-markdown-blog.dujun.ggff.net
     ports:
       - "10081:9091"
     healthcheck:

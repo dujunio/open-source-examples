@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=lsky-pro.dujun.bf
+      - EXAMPLE_DOMAIN=lsky-pro.dujun.ggff.net
     tty: true
 
   php:

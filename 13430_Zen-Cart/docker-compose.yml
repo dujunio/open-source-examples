@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=zen-cart.dujun.bf
+      - EXAMPLE_DOMAIN=zen-cart.dujun.ggff.net
     tty: true
 
   nginx:

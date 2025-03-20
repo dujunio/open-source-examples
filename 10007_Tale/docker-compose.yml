@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=tale.dujun.bf
+      - EXAMPLE_DOMAIN=tale.dujun.ggff.net
     tty: true
 
   java:

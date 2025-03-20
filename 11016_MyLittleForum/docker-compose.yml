@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=mylittleforum.dujun.bf
+      - EXAMPLE_DOMAIN=mylittleforum.dujun.ggff.net
     tty: true
 
   php:

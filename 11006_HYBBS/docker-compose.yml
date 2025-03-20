@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=hybbs.dujun.bf
+      - EXAMPLE_DOMAIN=hybbs.dujun.ggff.net
     tty: true
 
   nginx:

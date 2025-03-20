@@ -17,7 +17,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=spruche.dujun.bf
+      - EXAMPLE_DOMAIN=spruche.dujun.ggff.net
     tty: true
 
   nodejs:

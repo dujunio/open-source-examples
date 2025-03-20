@@ -34,7 +34,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=laravel-admin.dujun.bf
+      - EXAMPLE_DOMAIN=laravel-admin.dujun.ggff.net
     tty: true
 
   nginx:
