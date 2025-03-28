@@ -1,0 +1,27 @@
+#js13kGames 2018 选辑
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/js13kgames-2018
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "15956:80"
+    tty: true
+    container_name: js13kgames-2018
+
+volumes:
+  wwwroot:
+  vhost:
