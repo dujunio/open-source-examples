@@ -10,7 +10,7 @@ services:
     tty: true
 
   nodejs:
-    image: dujunio/nodejs:16
+    image: dujunio/nodejs:20
     depends_on:
       - data
     volumes:
