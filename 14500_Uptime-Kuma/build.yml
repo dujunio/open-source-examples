@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  uptime-kuma:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/uptime-kuma
