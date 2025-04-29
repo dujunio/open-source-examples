@@ -1,0 +1,49 @@
+#Tianji 1.20.7
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/tianji
+    volumes:
+      - init:/init
+      - wwwroot:/wwwroot
+    tty: true
+
+  postgresql:
+    image: dujunio/postgresql:13
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    healthcheck:
+      test: netstat -atn | grep 5432
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:22
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "14501:12345"
+    working_dir: /wwwroot/app/src/server
+    entrypoint: node dist/src/server/main.js
+    healthcheck:
+      test: curl -f http://localhost:12345
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    tty: true
+    container_name: tianji
+
+volumes:
+  init:
+  wwwroot:
