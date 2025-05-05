@@ -5,9 +5,7 @@ MAINTAINER dujun
 
 ADD data.txz /
 
-RUN apt-get update -y &&\
-    apt-get install xz-utils -y &&\
-    curl -sSfL https://get.tur.so/install.sh | bash
+RUN bash /install
 
 ENTRYPOINT /entrypoint
 
