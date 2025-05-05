@@ -9,4 +9,6 @@ RUN bash /install
 
 ENTRYPOINT /entrypoint
 
+HEALTHCHECK --interval=1s --timeout=5s --retries=3 CMD netstat -atn | grep 8080
+
 EXPOSE 8080
