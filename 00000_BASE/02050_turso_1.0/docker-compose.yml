@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  turso:
+    image: dujunio/turso:1.0
+    container_name: turso
+    tty: true
