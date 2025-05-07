@@ -1,0 +1,30 @@
+#HertzBeat 1.7.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/hertzbeat
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  java:
+    image: dujunio/java:17
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "14502:1157"
+    entrypoint: /bin/bash -c "/wwwroot/app/bin/startup.sh && /bin/bash"
+    healthcheck:
+      test: curl -f http://localhost:1157
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: hertzbeat
+
+volumes:
+  wwwroot:
