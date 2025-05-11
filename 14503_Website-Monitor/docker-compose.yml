@@ -1,0 +1,39 @@
+#Website Monitor
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/website-monitor
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  php:
+    image: dujunio/php:8.2
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      php:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "14503:80"
+    tty: true
+    container_name: website-monitor
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
