@@ -1,0 +1,35 @@
+#哪吒监控 1.12.4
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/nezha
+    volumes:
+      - agent:/agent
+      - dashboard:/dashboard
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      - data
+    volumes:
+      - agent:/agent
+      - dashboard:/dashboard
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=nezha.dujun.ggff.net
+    ports:
+      - "14504:80"
+    tty: true
+    container_name: nezha
+
+volumes:
+  dashboard:
+  agent:
+  vhost:
+  init:
