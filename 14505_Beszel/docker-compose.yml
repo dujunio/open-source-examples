@@ -1,0 +1,32 @@
+#Beszel 0.11.1
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/beszel
+    volumes:
+      - app:/app
+      - init:/init
+    tty: true
+
+  go:
+    image: dujunio/go:1.24
+    depends_on:
+      - data
+    volumes:
+      - app:/app
+      - init:/init
+    ports:
+      - "14505:8090"
+    healthcheck:
+      test: curl -f http://localhost:8090
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    tty: true
+    container_name: beszel
+
+volumes:
+  app:
+  init:
