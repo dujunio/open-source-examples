@@ -1,0 +1,32 @@
+#dashdot 6.0.0
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dashdot
+    volumes:
+      - wwwroot:/wwwroot
+    tty: true
+
+  nodejs:
+    image: dujunio/nodejs:22
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+    ports:
+      - "14507:3001"
+    working_dir: /wwwroot/app
+    entrypoint: node .
+    healthcheck:
+      test: curl -f http://localhost:3001
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    tty: true
+    container_name: dashdot
+
+volumes:
+  wwwroot:
