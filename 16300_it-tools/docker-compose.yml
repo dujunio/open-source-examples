@@ -1,0 +1,27 @@
+#IT-Tools 2024.10.22
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/it-tools
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      - data
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+      - wwwroot:/wwwroot
+    ports:
+      - "16300:80"
+    tty: true
+    container_name: it-tools
+
+volumes:
+  wwwroot:
+  vhost:
