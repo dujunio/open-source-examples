@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  aoaostar-toolbox:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dujunio/aoaostar-toolbox
