@@ -20,7 +20,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=hugo.dujun.ggff.net
+      - EXAMPLE_DOMAIN=hugo.dujun.art
     ports:
       - "10102:80"
     tty: true

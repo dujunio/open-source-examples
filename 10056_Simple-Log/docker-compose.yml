@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=simple-log.dujun.ggff.net
+      - EXAMPLE_DOMAIN=simple-log.dujun.art
     tty: true
 
   php:

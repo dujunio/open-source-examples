@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=pagecookery.dujun.ggff.net
+      - EXAMPLE_DOMAIN=pagecookery.dujun.art
     tty: true
 
   nginx:

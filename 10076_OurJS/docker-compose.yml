@@ -23,7 +23,7 @@ services:
     volumes:
       - wwwroot:/wwwroot
     environment:
-      - EXAMPLE_DOMAIN=ourjs.dujun.ggff.net
+      - EXAMPLE_DOMAIN=ourjs.dujun.art
     ports:
       - "10076:8051"
     working_dir: /wwwroot/app

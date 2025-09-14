@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=djangoblog.dujun.ggff.net
+      - EXAMPLE_DOMAIN=djangoblog.dujun.art
     expose:
       - "8000"
     healthcheck:

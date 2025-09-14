@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=dotclear.dujun.ggff.net
+      - EXAMPLE_DOMAIN=dotclear.dujun.art
     tty: true
 
   php:

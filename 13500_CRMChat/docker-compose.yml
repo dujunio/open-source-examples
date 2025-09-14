@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=crmchat.dujun.ggff.net
+      - EXAMPLE_DOMAIN=crmchat.dujun.art
     tty: true
 
   redis:

@@ -22,7 +22,7 @@ services:
       - vhost:/etc/nginx/sites-enabled
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=nezha.dujun.ggff.net
+      - EXAMPLE_DOMAIN=nezha.dujun.art
     ports:
       - "14504:80"
     tty: true

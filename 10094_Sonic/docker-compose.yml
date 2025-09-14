@@ -18,7 +18,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=sonic.dujun.ggff.net
+      - EXAMPLE_DOMAIN=sonic.dujun.art
     ports:
       - "10094:8080"
     healthcheck:

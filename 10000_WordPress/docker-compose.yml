@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=wordpress.dujun.ggff.net
+      - EXAMPLE_DOMAIN=wordpress.dujun.art
     tty: true
 
   php:

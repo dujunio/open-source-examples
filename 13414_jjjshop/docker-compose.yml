@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=jjjshop.dujun.ggff.net
+      - EXAMPLE_DOMAIN=jjjshop.dujun.art
     tty: true
 
   php:
@@ -30,7 +30,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=jjjshop.dujun.ggff.net
+      - EXAMPLE_DOMAIN=jjjshop.dujun.art
     tty: true
 
   nginx:

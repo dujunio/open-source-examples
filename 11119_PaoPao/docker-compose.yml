@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=paopao.dujun.ggff.net
+      - EXAMPLE_DOMAIN=paopao.dujun.art
     ports:
       - "11119:8008"
     healthcheck:

@@ -8,7 +8,7 @@ services:
     ports:
       - "14012:8000"
     environment:
-      - EXAMPLE_DOMAIN=ajenti.dujun.ggff.net
+      - EXAMPLE_DOMAIN=ajenti.dujun.art
     entrypoint: /entrypoint
     healthcheck:
       test: netstat -atn | grep 8000

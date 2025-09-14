@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=crmeb.dujun.ggff.net
+      - EXAMPLE_DOMAIN=crmeb.dujun.art
     tty: true
 
   redis:
@@ -36,7 +36,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=crmeb.dujun.ggff.net
+      - EXAMPLE_DOMAIN=crmeb.dujun.art
     expose:
       - "40001"
       - "40002"

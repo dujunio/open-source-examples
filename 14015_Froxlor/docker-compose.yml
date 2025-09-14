@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=froxlor.dujun.ggff.net
+      - EXAMPLE_DOMAIN=froxlor.dujun.art
     tty: true
 
   php:

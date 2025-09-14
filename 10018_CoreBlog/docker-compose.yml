@@ -34,7 +34,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=coreblog.dujun.ggff.net
+      - EXAMPLE_DOMAIN=coreblog.dujun.art
     tty: true
 
   nginx:

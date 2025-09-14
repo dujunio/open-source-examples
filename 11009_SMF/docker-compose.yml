@@ -18,7 +18,7 @@ services:
     volumes:
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=smf.dujun.ggff.net
+      - EXAMPLE_DOMAIN=smf.dujun.art
     tty: true
 
   php:
@@ -29,7 +29,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=smf.dujun.ggff.net
+      - EXAMPLE_DOMAIN=smf.dujun.art
     tty: true
 
   nginx:
