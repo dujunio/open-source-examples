@@ -28,7 +28,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=shopwind.dujun.art
+      - EXAMPLE_DOMAIN=shopwind.dujun.eu.org
     tty: true
 
   nginx:

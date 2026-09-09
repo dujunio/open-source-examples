@@ -27,7 +27,7 @@ services:
       - wwwroot:/wwwroot
       - init:/init
     environment:
-      - EXAMPLE_DOMAIN=flarum.dujun.art
+      - EXAMPLE_DOMAIN=flarum.dujun.eu.org
     tty: true
 
   nginx:
