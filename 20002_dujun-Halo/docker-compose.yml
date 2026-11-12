@@ -1,0 +1,57 @@
+#Halo 2.27.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dujun-halo
+    volumes:
+      - wwwroot:/wwwroot
+      - init:/init
+      - vhost:/etc/nginx/sites-enabled
+    tty: true
+
+  mysql:
+    image: dujunio/mariadb:10.5
+    depends_on:
+      - data
+    volumes:
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=dujun-halo.dujun.eu.org
+    tty: true
+
+  java:
+    image: dujunio/java:21
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wwwroot:/wwwroot
+    expose:
+      - "8090"
+    entrypoint: bash /wwwroot/app/halo.sh
+    healthcheck:
+      test: curl -f http://localhost:8090/actuator/health/readiness
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      java:
+        condition: service_healthy
+    volumes:
+      - vhost:/etc/nginx/sites-enabled
+    ports:
+      - "20002:80"
+    tty: true
+    container_name: dujun-halo
+
+volumes:
+  wwwroot:
+  init:
+  vhost:
