@@ -1,0 +1,32 @@
+#Astro 7.4.12
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dujun-astro
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=dujun-astro.dujun.eu.org
+    ports:
+      - "20003:80"
+    tty: true
+    container_name: dujun-astro
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
