@@ -1,0 +1,32 @@
+#Hexo 8.1.2
+
+version: '2.4'
+
+services:
+  data:
+    image: dujunio/dujun-hexo
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    tty: true
+
+  nginx:
+    image: dujunio/nginx:1.22
+    depends_on:
+      - data
+    volumes:
+      - wwwroot:/wwwroot
+      - vhost:/etc/nginx/sites-enabled
+      - init:/init
+    environment:
+      - EXAMPLE_DOMAIN=dujun-hexo.dujun.eu.org
+    ports:
+      - "20005:80"
+    tty: true
+    container_name: dujun-hexo
+
+volumes:
+  wwwroot:
+  vhost:
+  init:
